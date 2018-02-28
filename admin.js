@@ -1,23 +1,28 @@
 $(function() {
    var dateFormat = { year: 'numeric', month: 'short', day: '2-digit'};
    today = new Intl.DateTimeFormat('es-CL',dateFormat).format(new Date());
-   tomorrow = new Intl.DateTimeFormat('es-CL',dateFormat).format((new Date()).getDate+1);
-   var usageData{today: 20, tomorrow: 30, pastValues: [20,15,14], proyectedValues:[18,25,20], precision: 95}; //change this
+   tomorrow = new Intl.DateTimeFormat('es-CL',dateFormat).format((new Date()).getDate() + 1);
+   var usageData = {today: 20, tomorrow: 30, pastValues: [170,150,140], proyectedValues:[180,150,160], precision: 95}; //change this
    makeForm(usageData);
 });
 
 function makeForm(data){
-    makeGraph(data.values);
+    $("#divProyection").append('<div id="divGraph"></div>');
+    makeGraph(data.pastValues);
     
-    $("#divRequisition").append('<label>Hoy debes pedir</label></br>')
-    $("#divRequisition").append('<label>'+ today +' : '+ usageData.today +' Quintales</label></br>')
-    $("#divRequisition").append('<label>El proximo pedido debe ser</label></br>')
-    $("#divRequisition").append('<label>'+ tomorrow +' : '+ usageData.tomorrow +' Quintales</label></br>')
+    $("#divRequisition").append('<label>Hoy debes pedir</label></br>');
+    $("#divRequisition").append('<label>'+ today +' : '+ data.today +' Quintales</label></br>');
+    $("#divRequisition").append('<label>El proximo pedido debe ser</label></br>');
+    $("#divRequisition").append('<label>'+ tomorrow +' : '+ data.tomorrow +' Quintales</label></br>');
+    
+    $(".slideClick").click(function(){
+        $(this).next(".sliding").slideToggle();
+    });
 }
 
 function makeGraph(xValues){
     var data = {
-        x:xValues,
+        x: xValues,
         y: [0,40,80,120,160,200],
         type: 'bar',
         name: 'Proyección'
@@ -36,5 +41,5 @@ function makeGraph(xValues){
         t: 20,
         pad: 4
     }};
-    Plotly.newPlot('graph', data, layout, {displayModeBar: false});
+    Plotly.newPlot('divGraph', [data], layout, {displayModeBar: false});
 }

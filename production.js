@@ -12,6 +12,7 @@ function makeForm(data){
     });
     $("#divProduction").append('<label id="label1" class="lblProdItem slideClick">Reporte uso de Harina<label></br>');
     $("#divProduction").append($usageReport);
+    $("#divProduction").append('</br>')
     
     $dailyQuota = $('<div id="divDailyQuota" class="divProdItem sliding" style="display: none"></div>');
     $dailyQuota.append('<label class="lblToDo, lblToDoDate">'+ (new Date()).getDate() +'</label></br>');
@@ -23,11 +24,13 @@ function makeForm(data){
     $dailyQuota.append('<label class="lblToDo, lblToDoTotal"> Total:'+ dailyTotal +'</label></br>');
     $("#divProduction").append('<label id="label2" class="lblProdItem slideClick">Cantidad de Panes por día<label></br>');
     $("#divProduction").append($dailyQuota);
+    $("#divProduction").append('</br>')
     
     $totals = $('<div id="divTotals" class="divProdItem sliding" style="display: none"></div>');
     $totals.append('<label>Hoy '+ today +' debes usar: '+ data.dailyUsage +' quintales</label>')
     $("#divProduction").append('<label id="label3" class="lblProdItem slideClick">Totales<label></br>');    
     $("#divProduction").append($totals);
+    $("#divProduction").append('</br></br>');
         
     $(".lblProdItem").click(function(){
         $(this).next(".divProdItem").slideToggle();
