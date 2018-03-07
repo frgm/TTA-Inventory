@@ -5,16 +5,16 @@ def adminInv(request):
     return render_to_response("adminInv.html")
     
 def adminPro(request):
-    return HttpResponse("adminPro")
+    return render_to_response("adminPro.html")
 
 def distribution(request):
-    return HttpResponse("distribution")
+    return render_to_response("request.html")
 
 def index(request):
-    return HttpResponse("I N D E X")
+    return render_to_response("index.html")
 
 def production(request):
-    return HttpResponse("production")
-
+    return render_to_response("production.html")
+    
 def report(request):
-    return HttpResponse("report")
+    return render_to_response("report.html")
