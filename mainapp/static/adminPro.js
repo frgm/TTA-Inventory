@@ -12,3 +12,7 @@ function  makeEntry(table){
     });
     //Backend database here
 }
+
+function csvEntry(){
+
+}

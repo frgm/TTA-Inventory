@@ -8,5 +8,7 @@ urlpatterns = [
     path('distribution', views.distribution, name='distribution'),
     path('', views.index, name='index'),
     path('production', views.production, name='production'),
-    path('report', views.report, name='report')
+    path('report', views.report, name='report'),
+    path('report/db', dbReport.as_view()),
+    path('production/db', dbProduction.as_view())
 ]

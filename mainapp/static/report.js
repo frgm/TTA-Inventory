@@ -25,5 +25,13 @@ function makeReport(items){
     for(var i = 0; i < items.length; i++){
         report[items[i]] = $('#'+items[i]).val;
     }
-    //send report object
+    $.ajax({
+        method: 'POST',
+        url = 'db/report',
+        data: report
+    }).done(function(response){
+        if(response.success){
+            alert('OK');
+        }
+    });
 }
