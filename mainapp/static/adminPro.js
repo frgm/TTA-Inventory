@@ -10,9 +10,26 @@ function  makeEntry(table){
     $('.'+table).each(function(){
         vals[$(this).attr("class")] = $(this).val();
     });
-    //Backend database here
+    $.ajax({
+        method: 'POST',
+        url = 'adminpro/db',
+        data: {'type': table, 'data': vals}
+    }).done(function(response){
+        if(response.success){
+            alert('OK');
+        }
+    });
 }
 
 function csvEntry(){
-
+    csv = $("#inpCSV").val();
+    $.ajax({
+        method: 'POST',
+        url = 'adminpro/db',
+        data: {'type': 'CSV', 'data': csv}
+    }).done(function(response){
+        if(response.success){
+            alert('OK');
+        }
+    });
 }

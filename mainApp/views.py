@@ -2,6 +2,7 @@ from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from django.views import View
 import datetime as dt
+import csv
 import mainApp.models as md
 
 def adminInv(request):
@@ -32,7 +33,7 @@ class dbReport(view):
             id = md.Products.objects.filter(Name=item).values('ID_Prod')
             r = md.Report(ID_Loc=request.session['ID_Loc_Usr'], ID_Emp=request.session['ID_Emp_Usr'], ID_Prod=id, Quantity=request[item], Date=dt.datetime.now().strftime("%d-%m-%Y"))
             r.save()
-        return JsonResponse({'success': True});
+        return JsonResponse({'pk': r.pk});
 
 class dbProduction(view):  report quota usage
     def get(self, request):
@@ -68,7 +69,23 @@ class dbDistribution(view):
 
 class dbAdminPro(view):
     def post(self, request):
-        return JsonResponse({'success': True});
+        type = request.data.type
+        data = request.data.data
+        if type == 'CSV':
+            csvdata = csv.reader(data)
+            for row in csvdata
+                _,
+        else:
+            if type == 'Employee':
+                i = md.Employee(Login=data.Login, Pass=data.Pass, Role=data.Role)
+            elif type == 'Products':
+                i = md.Products(Name=data.Name, Material=data.Material)
+            elif type == 'Locations':            
+                i = md.Locations(Name=data.Name, Address=data.Address, Latitude=data.Latitude, Longitude=data.Longitude)
+        i.save()
+        return JsonResponse({'pk': i.pk});
 
-class dbAdminInv(view):
+class dbAdminInv(view): # {today: 20, tomorrow: 30, pastValues: [170,150,140], proyectedValues:[180,150,160], precision: 95};
+    def get(self, request):
+        
 

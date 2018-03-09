@@ -27,7 +27,7 @@ function makeReport(items){
     }
     $.ajax({
         method: 'POST',
-        url = 'db/report',
+        url = 'report/db',
         data: report
     }).done(function(response){
         if(response.success){
