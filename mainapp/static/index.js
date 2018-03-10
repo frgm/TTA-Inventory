@@ -10,3 +10,36 @@ function onSignIn(googleUser) {
     };
     xhr.send('idtoken=' + id_token);
 }
+
+function login(){
+    name = $("#txtName").val();
+    pass = $("#txtPass").val();
+    $.ajax({
+        method: 'POST',
+        url = 'index/login',
+        data: {'name'=name, 'pasw'=pass}
+    }).done(function(response){
+        if(response.success){
+            alert('LOGIN');
+            switch(response.role){
+                case 'pro':
+                    window.location.href = 'adminPro';
+                    break;
+                case 'admin'
+                    window.location.href = 'adminInv';
+                    break;
+                case 'distribution':
+                    window.location.href = 'distribution';
+                    break;
+                case 'production':
+                    window.location.href = 'production';
+                    break;
+                case 'report':
+                    window.location.href = 'report';
+            }
+        }
+        else if(!(response.success)){
+            alert('ERROR');
+        }
+    });
+}

@@ -2,6 +2,8 @@ from django.db import models
 
 class Employees(models.Model):
     ID_Emp = models.AutoField(primary_key=True)
+    Name = models.CharField(max_length=200) #Or phone number
+    Password = models.CharField(max_length=200)
     Role = models.IntegerField(default=0)
     
     def __str__(self):

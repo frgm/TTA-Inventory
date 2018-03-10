@@ -4,6 +4,7 @@ from django.views import View
 import datetime as dt
 import csv
 import mainApp.models as md
+import algorithms.py as algo
 
 def adminInv(request):
     return render_to_response("adminInv.html")
@@ -35,7 +36,7 @@ class dbReport(view):
             r.save()
         return JsonResponse({'pk': r.pk});
 
-class dbProduction(view):  report quota usage
+class dbProduction(view):
     def get(self, request):
         prodVal = {}
         daysAgo = dt.datetime.now() - dt.timeDelta(days=2)
@@ -43,10 +44,8 @@ class dbProduction(view):  report quota usage
         usage = {}
         for r in repo:
             usage[r.Date.strftime("%d-%m-%Y")] = r.Quantity
-        dQuotas = {}
-        dUsage = 0;
-        #DAILY ITEM QUOTAS
-        #DAILY USAGE
+        dQuotas = md.Requisition.objects.filter(ID_Loc=request.session['ID_Loc_Usr']).filter(Date__lt = daysAgo)
+        dUsage = algo.predictRegression(dt.datetime.now().strftime("%d-%m-%Y"))
         prodVal['usage'] = usage;
         prodVal['dailyQuotas'] = dQuotas;
         prodVal['dailyusage'] = dUsage;
@@ -83,9 +82,17 @@ class dbAdminPro(view):
             elif type == 'Locations':            
                 i = md.Locations(Name=data.Name, Address=data.Address, Latitude=data.Latitude, Longitude=data.Longitude)
         i.save()
-        return JsonResponse({'pk': i.pk});
+        return JsonResponse({'pk': i.pk})
 
 class dbAdminInv(view): # {today: 20, tomorrow: 30, pastValues: [170,150,140], proyectedValues:[180,150,160], precision: 95};
     def get(self, request):
         
-
+class login(view):
+    def post(self, request):
+        name = request.data.name
+        pasw = request.data.pasw
+        e = md.Employee.filter(Name=name).filter(Password=pasw)
+        if not e.count():
+            return JsonResponse({'success' = True, 'role' = e.Role})
+        else:
+            return JsonResponse({'success' = False})
