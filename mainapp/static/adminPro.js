@@ -1,6 +1,9 @@
 $(function() {
-    $(".btn").each(function(){
+    $("button").not(".csv").each(function(){
         $(this).click(makeEntry($(this).attr("class")));
+    });
+    $("button").filter(".csv").each(function(){
+        $(this).click(csvEntry($(this).attr("class").split(' ')[1]));
     });
 });
 
@@ -21,12 +24,12 @@ function  makeEntry(table){
     });
 }
 
-function csvEntry(){
+function csvEntry(table){
     csv = $("#inpCSV").val();
     $.ajax({
         method: 'POST',
         url = 'adminpro/db',
-        data: {'type': 'CSV', 'data': csv}
+        data: {'type': 'CSV'+table, 'data': csv}
     }).done(function(response){
         if(response.success){
             alert('OK');
