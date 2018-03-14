@@ -14,5 +14,6 @@ def makeRegression(usage, days):
 def predictRegression(day):
     regression = joblib.load('regressionModel.pkl')
     ordd = dt.datetime.strptime(day,"%d-%m-%Y").date().toordinal()
-    prediction = regression.predict(x_predict)
-    return prediction
+    prediction = regression.predict(ordd)
+    precision = 0
+    return prediction, precision

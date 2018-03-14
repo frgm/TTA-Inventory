@@ -24,7 +24,7 @@ def production(request):
 def report(request):
     return render_to_response("report.html")
 
-class dbReport(view):
+class dbReport(View):
     def get(self, request):
         r = md.Products.objects.values_list('Name',flat=True)
         return HttpResponse(r)
@@ -36,7 +36,7 @@ class dbReport(view):
             r.save()
         return JsonResponse({'pk': r.pk});
 
-class dbProduction(view):
+class dbProduction(View):
     def get(self, request):
         prodVal = {}
         daysAgo = dt.datetime.now() - dt.timeDelta(days=2)
@@ -52,7 +52,7 @@ class dbProduction(view):
         return HttpResponse(prodVal)
         
 
-class dbDistribution(view):
+class dbDistribution(View):
     def get(self, request):
         locs = md.Locations.objects.All();
         locs_out = {};
@@ -66,7 +66,7 @@ class dbDistribution(view):
         return HttpResponse(locs_out)
 
 
-class dbAdminPro(view):
+class dbAdminPro(View):
     def post(self, request):
         type = request.data.type
         data = request.data.data
@@ -96,14 +96,22 @@ class dbAdminPro(view):
             i.save()
         return JsonResponse({'pk': i.pk})
 
-class dbAdminInv(view): # {today: 20, tomorrow: 30, pastValues: [170,150,140], proyectedValues:[180,150,160], precision: 95};
+class dbAdminInv(View):
     def get(self, request):
         todayDate =  dt.datetime.now()
-        today = algo.predictRegression(todayDate.strftime("%d-%m-%Y"))
-        tomorrow = algo.predictRegression((todayDate - dt.timeDelta(days=2)).strftime("%d-%m-%Y"))
-        
+        today,precision = algo.predictRegression(todayDate.strftime("%d-%m-%Y"))
+        tomorrow,_ = algo.predictRegression((todayDate + dt.timeDelta(days=1)).strftime("%d-%m-%Y"))
+        pastValues = []
+        for i in range(1,4):
+            q = md.Requisition.objects.filter(ID_Loc=request.session['ID_Loc_Usr']).filter(Date = todayDate - dt.timeDelta(days= i))
+            pastValues.append(q.Quantity)
+        proyectedValues = []
+        for i in range(2,5):
+            p = algo.predictRegression((todayDate + dt.timeDelta(days=i)).strftime("%d-%m-%Y"))
+            proyectedValues.append(p)
+        return JsonResponse({'today': today, 'tomorrow': tomorrow, 'pastValues': pastValues, 'proyectedValues': proyectedValues, 'precision': precision})   
     
-class login(view):
+class login(View):
     def post(self, request):
         name = request.data.name
         pasw = request.data.pasw

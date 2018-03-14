@@ -1,9 +1,9 @@
 $(function() {
-    $("button").not(".csv").each(function(){
-        $(this).click(makeEntry($(this).attr("class")));
+    $("input").filter(".btn").each(function(){
+        $(this).one('click',makeEntry($(this).attr("class").split(' ')[1]));
     });
-    $("button").filter(".csv").each(function(){
-        $(this).click(csvEntry($(this).attr("class").split(' ')[1]));
+    $("input").filter(".btncsv").each(function(){
+        $(this).one('click',csvEntry($(this).attr("class").split(' ')[1]));
     });
 });
 
@@ -15,7 +15,7 @@ function  makeEntry(table){
     });
     $.ajax({
         method: 'POST',
-        url = 'adminpro/db',
+        url : 'adminPro/db',
         data: {'type': table, 'data': vals}
     }).done(function(response){
         if(response.success){
@@ -28,7 +28,7 @@ function csvEntry(table){
     csv = $("#inpCSV").val();
     $.ajax({
         method: 'POST',
-        url = 'adminpro/db',
+        url : 'adminPro/db',
         data: {'type': 'CSV'+table, 'data': csv}
     }).done(function(response){
         if(response.success){

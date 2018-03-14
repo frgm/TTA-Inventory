@@ -1,5 +1,5 @@
 from django.urls import path
-
+from mainApp.views import *
 from . import views
 
 urlpatterns = [
@@ -10,5 +10,8 @@ urlpatterns = [
     path('production', views.production, name='production'),
     path('report', views.report, name='report'),
     path('report/db', dbReport.as_view()),
-    path('production/db', dbProduction.as_view())
+    path('production/db', dbProduction.as_view()),
+    path('distribution/db', dbDistribution.as_view()),
+    path('adminPro/db', dbAdminPro.as_view()),
+    path('adminInv/db', dbAdminInv.as_view())
 ]
