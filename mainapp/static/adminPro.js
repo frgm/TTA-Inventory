@@ -1,9 +1,9 @@
 $(function() {
-    $("input").filter(".btn").each(function(){
-        $(this).one('click',makeEntry($(this).attr("class").split(' ')[1]));
-    });
-    $("input").filter(".btncsv").each(function(){
-        $(this).one('click',csvEntry($(this).attr("class").split(' ')[1]));
+    $("input").filter(".btn").on('click',function(event){
+        makeEntry($(this).attr("class").split(' ')[1]);
+    });    
+    $("input").filter(".btncsv").on('click',function(event){
+        csvEntry($(this).attr("class").split(' ')[1]);
     });
 });
 

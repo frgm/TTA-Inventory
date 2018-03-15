@@ -1,6 +1,7 @@
 from django.shortcuts import render, render_to_response
 from django.http import HttpResponse
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 import datetime as dt
 import csv
 import mainApp.models as md
@@ -25,10 +26,12 @@ def report(request):
     return render_to_response("report.html")
 
 class dbReport(View):
+    @csrf_exempt
     def get(self, request):
         r = md.Products.objects.values_list('Name',flat=True)
         return HttpResponse(r)
-    
+        
+    @csrf_exempt
     def post(self,request):
         for item in request:
             id = md.Products.objects.filter(Name=item).values('ID_Prod')
@@ -37,6 +40,7 @@ class dbReport(View):
         return JsonResponse({'pk': r.pk});
 
 class dbProduction(View):
+    @csrf_exempt
     def get(self, request):
         prodVal = {}
         daysAgo = dt.datetime.now() - dt.timeDelta(days=2)
@@ -53,6 +57,7 @@ class dbProduction(View):
         
 
 class dbDistribution(View):
+    @csrf_exempt
     def get(self, request):
         locs = md.Locations.objects.All();
         locs_out = {};
@@ -67,9 +72,11 @@ class dbDistribution(View):
 
 
 class dbAdminPro(View):
+    @csrf_exempt
     def post(self, request):
-        type = request.data.type
-        data = request.data.data
+        print("                  "+request.POST) 
+        type = request.POST['data'].type
+        data = request.POST['data'].data
         if type == 'CSVEMployee':
             csvdata = csv.reader(data)
             for row in csvdata:
@@ -97,6 +104,7 @@ class dbAdminPro(View):
         return JsonResponse({'pk': i.pk})
 
 class dbAdminInv(View):
+    @csrf_exempt
     def get(self, request):
         todayDate =  dt.datetime.now()
         today,precision = algo.predictRegression(todayDate.strftime("%d-%m-%Y"))
@@ -112,6 +120,7 @@ class dbAdminInv(View):
         return JsonResponse({'today': today, 'tomorrow': tomorrow, 'pastValues': pastValues, 'proyectedValues': proyectedValues, 'precision': precision})   
     
 class login(View):
+    @csrf_exempt
     def post(self, request):
         name = request.data.name
         pasw = request.data.pasw
