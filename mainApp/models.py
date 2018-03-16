@@ -2,9 +2,9 @@ from django.db import models
 
 class Employees(models.Model):
     ID_Emp = models.AutoField(primary_key=True)
-    Name = models.CharField(max_length=200) #Or phone number
-    Password = models.CharField(max_length=200)
-    Role = models.IntegerField(default=0)
+    Name = models.CharField(max_length=200, default='') #Or phone number
+    Password = models.CharField(max_length=200, default='')
+    Role = models.CharField(max_length=200, default='')
     
     def __str__(self):
         return self.ID_Emp
@@ -12,7 +12,7 @@ class Employees(models.Model):
         
 class Products(models.Model):
     ID_Prod = models.AutoField(primary_key=True)
-    Name = models.CharField(max_length=200)
+    Name = models.CharField(max_length=200, default='')
     Material = models.IntegerField(default=0)
     
     def __str__(self):
@@ -21,8 +21,8 @@ class Products(models.Model):
         
 class Locations(models.Model):
     ID_Loc = models.AutoField(primary_key=True)
-    Address = models.CharField(max_length=200)
-    Name = models.CharField(max_length=200)
+    Address = models.CharField(max_length=200, default='')
+    Name = models.CharField(max_length=200, default='')
     Latitude = models.IntegerField(default=0)
     Longitude = models.IntegerField(default=0)
     

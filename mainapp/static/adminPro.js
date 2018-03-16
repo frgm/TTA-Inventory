@@ -9,17 +9,18 @@ $(function() {
 
 
 function  makeEntry(table){
-    vals = {}
-    $('.'+table).each(function(){
-        vals[$(this).attr("class")] = $(this).val();
+    vals = ""
+    $('.'+table).not('.btn,.btncsv').each(function(){
+        vals += $(this).val() + ','
     });
+    vals = vals.slice(0,-1);
     $.ajax({
         method: 'POST',
         url : 'adminPro/db',
         data: {'type': table, 'data': vals}
     }).done(function(response){
         if(response.success){
-            alert('OK');
+            alert(response.pk);
         }
     });
 }
@@ -29,10 +30,10 @@ function csvEntry(table){
     $.ajax({
         method: 'POST',
         url : 'adminPro/db',
-        data: {'type': 'CSV'+table, 'data': csv}
+        data: {'type': table, 'data': csv}
     }).done(function(response){
         if(response.success){
-            alert('OK');
+            alert(response.pk);
         }
     });
 }

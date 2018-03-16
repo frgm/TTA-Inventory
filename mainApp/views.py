@@ -1,5 +1,5 @@
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
 import datetime as dt
@@ -74,34 +74,23 @@ class dbDistribution(View):
 class dbAdminPro(View):
     @csrf_exempt
     def post(self, request):
-        print("                  "+request.POST) 
-        type = request.POST['data'].type
-        data = request.POST['data'].data
-        if type == 'CSVEMployee':
-            csvdata = csv.reader(data)
+        print(request.POST) 
+        type = request.POST['type']
+        data = request.POST['data']
+        csvdata = csv.reader(data.split('\n'))
+        if type == 'Employees':
             for row in csvdata:
-                i = md.Employee(Login=csvdata[0], Pass=csvdata[1], Role=csvdata[2])
-                i.save()
-        elif type == 'CSVProducts':
-            csvdata = csv.reader(data)
-            for row in csvdata:
-                i = md.Products(Name=csvdata[0], Material=csvdata[1])
-                i.save()
-        elif type == 'CSVLocations':
-            csvdata = csv.reader(data)
-            for row in csvdata:
-                i = md.Locations(Name=csvdata[0], Address=csvdata[1], Latitude=csvdata[2], Longitude=csvdata[3])
-                i.save()
-        elif type == 'Employee':
-                i = md.Employee(Login=data.Login, Pass=data.Pass, Role=data.Role)
-                i.save()
+                i = md.Employees(Name=row[0], Password=row[1], Role=row[2])
         elif type == 'Products':
-            i = md.Products(Name=data.Name, Material=data.Material)
-            i.save()
-        elif type == 'Locations':            
-            i = md.Locations(Name=data.Name, Address=data.Address, Latitude=data.Latitude, Longitude=data.Longitude)
-            i.save()
-        return JsonResponse({'pk': i.pk})
+            for row in csvdata:
+                i = md.Products(Name=row[0], Material=row[1])
+        elif type == 'Locations':
+            for row in csvdata:
+                i = md.Locations(Name=row[0], Address=row[1], Latitude=row[2], Longitude=row[3])
+        else:
+            return JsonResponse({'success': False})
+        i.save()
+        return JsonResponse({'success': True, 'pk': i.pk})
 
 class dbAdminInv(View):
     @csrf_exempt
