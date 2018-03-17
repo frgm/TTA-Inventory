@@ -1,9 +1,20 @@
 $(function() {
-    var itemList = ["testItem1","testItem2","testItem3"]; //change this
-    $("#btnReport").click(makeReport(itemList));
-    var dateFormat = { year: 'numeric', month: 'short', day: '2-digit'};
+    //var itemList = ["testItem1","testItem2","testItem3"]; //change this
     today = new Intl.DateTimeFormat('es-CL',dateFormat).format(new Date());
-    makeForm(itemList);
+    var dateFormat = { year: 'numeric', month: 'short', day: '2-digit'};
+        $.ajax({
+        method: 'GET',
+        url : 'report/db',
+        data: {}
+    }).done(function(response){
+        if(response.success){
+            delete response.success;
+            $("#btnReport").click(makeReport(itemList));
+            makeForm(itemList);
+        }
+    });
+    
+
 });
 
 function makeForm(items){

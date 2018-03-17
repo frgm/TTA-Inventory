@@ -1,9 +1,20 @@
 $(function() {
-    localList = {"testLocation1":{address:"test address", coords:{lat: 37.419347, lng: -122.079975}, items:{"testItem1":100, "testItem2":50}}, 
-                     "testLocation3":{address:"test address 2", coords:{lat: 37.419347, lng: -122.079975}, items:{"testItem4":100, "testItem3":50}}}; //change this
+    //localList = {"testLocation1":{address:"test address", coords:{lat: 37.419347, lng: -122.079975}, items:{"testItem1":100, "testItem2":50}}, 
+    //                 "testLocation3":{address:"test address 2", coords:{lat: 37.419347, lng: -122.079975}, items:{"testItem4":100, "testItem3":50}}}; //change this
+    var localList = {}
     var dateFormat = { year: 'numeric', month: 'short', day: '2-digit'};
-    today = new Intl.DateTimeFormat('es-CL',dateFormat).format(new Date());
-    makeForm(localList);    
+    today = new Intl.DateTimeFormat('es-CL',dateFormat).format(new Date());    
+    $.ajax({
+        method: 'GET',
+        url : 'distribution/db',
+        data: {}
+    }).done(function(response){
+        if(response.success){
+            delete response.success;
+            makeForm(response);
+            initMaps(response)
+        }
+    });
 });
 
 function makeForm(locals){
@@ -37,7 +48,7 @@ function makeMap(div, coords){
     });
 }        
 
-function initMaps(){
+function initMaps(localList){
     $.each(localList, function(key, value){
         makeMap("div"+ key +"_map", value.coords);
     });

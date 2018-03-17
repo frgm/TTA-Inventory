@@ -1,8 +1,17 @@
 $(function() {
-    var localData = {usage:{"17-02-18":20, "18-02-18":15}, dailyItemQuotas:{"testItem1":100, "testItem2":50}, dailyUsage:20}; //change this
+    //var localData = {usage:{"17-02-18":20, "18-02-18":15}, dailyItemQuotas:{"testItem1":100, "testItem2":50}, dailyUsage:20}; //change this
     var dateFormat = { year: 'numeric', month: 'short', day: '2-digit'};
     today = new Intl.DateTimeFormat('es-CL',dateFormat).format(new Date());
-    makeForm(localData);
+    $.ajax({
+        method: 'GET',
+        url : 'production/db',
+        data: {}
+    }).done(function(response){
+        if(response.success){
+            delete response.success;
+            makeForm(response);
+        }
+    });
 });
 
 function makeForm(data){

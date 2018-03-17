@@ -2,8 +2,16 @@ $(function() {
    var dateFormat = { year: 'numeric', month: 'short', day: '2-digit'};
    today = new Intl.DateTimeFormat('es-CL',dateFormat).format(new Date());
    tomorrow = new Intl.DateTimeFormat('es-CL',dateFormat).format((new Date()).getDate() + 1);
-   var usageData = {today: 20, tomorrow: 30, pastValues: [170,150,140], proyectedValues:[180,150,160], precision: 95}; //change this
-   makeForm(usageData);
+   //var usageData = {today: 20, tomorrow: 30, pastValues: [170,150,140], proyectedValues:[180,150,160], precision: 95}; //change this   
+   $.ajax({
+        method: 'GET',
+        url : 'adminInv/db',
+        data: {}
+    }).done(function(response){
+        if(response.success){
+            makeForm(response);
+        }
+    });
 });
 
 function makeForm(data){

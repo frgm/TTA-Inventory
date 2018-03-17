@@ -14,7 +14,7 @@ def adminPro(request):
     return render_to_response("adminPro.html")
 
 def distribution(request):
-    return render_to_response("request.html")
+    return render_to_response("distribution.html")
 
 def index(request):
     return render_to_response("index.html")
@@ -37,7 +37,7 @@ class dbReport(View):
             id = md.Products.objects.filter(Name=item).values('ID_Prod')
             r = md.Report(ID_Loc=request.session['ID_Loc_Usr'], ID_Emp=request.session['ID_Emp_Usr'], ID_Prod=id, Quantity=request[item], Date=dt.datetime.now().strftime("%d-%m-%Y"))
             r.save()
-        return JsonResponse({'pk': r.pk});
+        return JsonResponse({'success': True, 'pk': r.pk});
 
 class dbProduction(View):
     @csrf_exempt
@@ -50,16 +50,17 @@ class dbProduction(View):
             usage[r.Date.strftime("%d-%m-%Y")] = r.Quantity
         dQuotas = md.Requisition.objects.filter(ID_Loc=request.session['ID_Loc_Usr']).filter(Date__lt = daysAgo)
         dUsage = algo.predictRegression(dt.datetime.now().strftime("%d-%m-%Y"))
-        prodVal['usage'] = usage;
-        prodVal['dailyQuotas'] = dQuotas;
-        prodVal['dailyusage'] = dUsage;
-        return HttpResponse(prodVal)
+        prodVal['usage'] = usage
+        prodVal['dailyQuotas'] = dQuotas
+        prodVal['dailyusage'] = dUsage
+        prodVal['success'] = True
+        return JsonResponse(prodVal)
         
 
 class dbDistribution(View):
     @csrf_exempt
     def get(self, request):
-        locs = md.Locations.objects.All();
+        locs = md.Locations.objects.all()
         locs_out = {};
         for loc in locs:
             itms = md.Stock.objects.filter(ID_Loc = loc.ID_Loc)
@@ -67,8 +68,9 @@ class dbDistribution(View):
             for itm in itms:
                 iname = md.Products.objects.filter(ID_Prod=itm.ID_Prod).get()
                 i[iname] = itm.Quantity
-            locs_out[loc.Name] = {"address" : loc.Address, "coords" : {lat : loc.Latitude, lng : loc.Longitude}, items : i}
-        return HttpResponse(locs_out)
+            locs_out[loc.Name] = {"address" : loc.Address, "coords" : {'lat' : loc.Latitude, 'lng' : loc.Longitude}, 'items' : i}
+        locs_out['success'] = True
+        return JsonResponse(locs_out)
 
 
 class dbAdminPro(View):
@@ -106,7 +108,7 @@ class dbAdminInv(View):
         for i in range(2,5):
             p = algo.predictRegression((todayDate + dt.timeDelta(days=i)).strftime("%d-%m-%Y"))
             proyectedValues.append(p)
-        return JsonResponse({'today': today, 'tomorrow': tomorrow, 'pastValues': pastValues, 'proyectedValues': proyectedValues, 'precision': precision})   
+        return JsonResponse({success: True, 'today': today, 'tomorrow': tomorrow, 'pastValues': pastValues, 'proyectedValues': proyectedValues, 'precision': precision})   
     
 class login(View):
     @csrf_exempt
