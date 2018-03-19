@@ -12,7 +12,10 @@ def makeRegression(usage, days):
     joblib.dump(regression, 'regressionModel.pkl')
     
 def predictRegression(day):
-    regression = joblib.load('regressionModel.pkl')
+    try:
+        regression = joblib.load('regressionModel.pkl')
+    except:
+        return -1,-1 #error
     ordd = dt.datetime.strptime(day,"%d-%m-%Y").date().toordinal()
     prediction = regression.predict(ordd)
     precision = 0

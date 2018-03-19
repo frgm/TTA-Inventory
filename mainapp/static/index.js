@@ -1,4 +1,4 @@
-function onSignIn(googleUser) {
+/*function onSignIn(googleUser) {
   var id_token = googleUser.getAuthResponse().id_token;
     var xhr = new XMLHttpRequest();
     xhr.open('POST', '');  //CHANGE THIS
@@ -9,22 +9,22 @@ function onSignIn(googleUser) {
       //load page according to response[1] 
     };
     xhr.send('idtoken=' + id_token);
-}
+}*/
 
 function login(){
     name = $("#txtName").val();
     pass = $("#txtPass").val();
     $.ajax({
         method: 'POST',
-        url = 'index/login',
-        data: {'name'=name, 'pasw'=pass}
+        url: 'index/login',
+        data: {'name':name, 'pasw':pass}
     }).done(function(response){
         if(response.success){
             switch(response.role){
                 case 'pro':
                     window.location.href = 'adminPro';
                     break;
-                case 'admin'
+                case 'admin':
                     window.location.href = 'adminInv';
                     break;
                 case 'distribution':

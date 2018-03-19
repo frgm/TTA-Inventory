@@ -43,13 +43,16 @@ class dbProduction(View):
     @csrf_exempt
     def get(self, request):
         prodVal = {}
-        daysAgo = dt.datetime.now() - dt.timeDelta(days=2)
-        repo = md.Reports.objects.filter(Date__lt = daysAgo)
+        daysAgo = dt.datetime.now() - dt.timedelta(days=2)
+        repo = md.Report.objects.filter(Date__lt = daysAgo)
         usage = {}
         for r in repo:
             usage[r.Date.strftime("%d-%m-%Y")] = r.Quantity
-        dQuotas = md.Requisition.objects.filter(ID_Loc=request.session['ID_Loc_Usr']).filter(Date__lt = daysAgo)
-        dUsage = algo.predictRegression(dt.datetime.now().strftime("%d-%m-%Y"))
+        try:
+            dQuotas = md.Requisition.objects.filter(ID_Loc=request.session['ID_Loc_Usr']).filter(Date__lt = daysAgo)[0].Quantity
+        except:
+            dQuotas = -1
+        dUsage,_ = algo.predictRegression(dt.datetime.now().strftime("%d-%m-%Y"))
         prodVal['usage'] = usage
         prodVal['dailyQuotas'] = dQuotas
         prodVal['dailyusage'] = dUsage
@@ -99,14 +102,14 @@ class dbAdminInv(View):
     def get(self, request):
         todayDate =  dt.datetime.now()
         today,precision = algo.predictRegression(todayDate.strftime("%d-%m-%Y"))
-        tomorrow,_ = algo.predictRegression((todayDate + dt.timeDelta(days=1)).strftime("%d-%m-%Y"))
+        tomorrow,_ = algo.predictRegression((todayDate + dt.timedelta(days=1)).strftime("%d-%m-%Y"))
         pastValues = []
         for i in range(1,4):
-            q = md.Requisition.objects.filter(ID_Loc=request.session['ID_Loc_Usr']).filter(Date = todayDate - dt.timeDelta(days= i))
-            pastValues.append(q.Quantity)
+            q = md.Requisition.objects.filter(ID_Loc=request.session['ID_Loc_Usr']).filter(Date = todayDate - dt.timedelta(days= i))
+            pastValues.append(q[0].Quantity)
         proyectedValues = []
         for i in range(2,5):
-            p = algo.predictRegression((todayDate + dt.timeDelta(days=i)).strftime("%d-%m-%Y"))
+            p = algo.predictRegression((todayDate + dt.timedelta(days=i)).strftime("%d-%m-%Y"))
             proyectedValues.append(p)
         return JsonResponse({success: True, 'today': today, 'tomorrow': tomorrow, 'pastValues': pastValues, 'proyectedValues': proyectedValues, 'precision': precision})   
     
@@ -115,8 +118,10 @@ class login(View):
     def post(self, request):
         name = request.POST['name']
         pasw = request.POST['pasw']
-        e = md.Employee.filter(Name=name).filter(Password=pasw)
-        if not e.count():
-            return JsonResponse({'success' : True, 'role' : e.Role})
+        e = md.Employees.objects.filter(Name=name).filter(Password=pasw)
+        if e.count():
+            print(e.query)
+            request.session['ID_Loc_Usr'] = e[0].ID_Emp
+            return JsonResponse({'success' : True, 'role' : e[0].Role})
         else:
             return JsonResponse({'success' : False})
