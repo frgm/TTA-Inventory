@@ -7,6 +7,8 @@ urlpatterns = [
     path('adminPro', views.adminPro, name='adminPro'),
     path('distribution', views.distribution, name='distribution'),
     path('', views.index, name='index'),
+    path('index', views.index, name='index'),
+    path('login', views.index, name='index'),
     path('production', views.production, name='production'),
     path('report', views.report, name='report'),
     path('report/db', dbReport.as_view()),

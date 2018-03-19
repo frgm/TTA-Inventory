@@ -20,7 +20,6 @@ function login(){
         data: {'name'=name, 'pasw'=pass}
     }).done(function(response){
         if(response.success){
-            alert('LOGIN');
             switch(response.role){
                 case 'pro':
                     window.location.href = 'adminPro';

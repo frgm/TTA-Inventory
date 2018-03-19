@@ -113,8 +113,8 @@ class dbAdminInv(View):
 class login(View):
     @csrf_exempt
     def post(self, request):
-        name = request.data.name
-        pasw = request.data.pasw
+        name = request.POST['name']
+        pasw = request.POST['pasw']
         e = md.Employee.filter(Name=name).filter(Password=pasw)
         if not e.count():
             return JsonResponse({'success' : True, 'role' : e.Role})
