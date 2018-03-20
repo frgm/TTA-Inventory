@@ -1,1 +1,7 @@
-python-3.6.4
+mainApp
+TTA-Inventory
+db.sqlite3
+.py
+.html
+.js
+.css
