@@ -1,0 +1,1 @@
+web: gunicorn ttainv.wsgi --log-file
