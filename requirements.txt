@@ -1,7 +1,5 @@
-mainApp
-TTA-Inventory
-db.sqlite3
-.py
-.html
-.js
-.css
+dj-database-url==0.4.2
+Django==2.0.2
+gunicorn==19.7.1
+psycopg2==2.7.1
+whitenoise==3.3.0
