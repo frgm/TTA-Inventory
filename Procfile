@@ -1,1 +1,1 @@
-web: gunicorn TTA-Inventory.wsgi
+web: gunicorn TTA_Inventory.wsgi
