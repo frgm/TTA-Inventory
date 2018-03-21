@@ -1,0 +1,56 @@
+.sliding{
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: #B1BDC4;
+    background-color: #98A9B2;
+}
+
+.slideClick{
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: #B1BDC4;
+    background-color: #758C98;
+}
+
+body {
+    margin: auto;
+    max-width: 310px;
+    background-color: #758C98;
+    font-family: "Trebuchet MS", sans-serif;
+}
+
+.loginBody{
+    margin: auto;
+    max-width: 310px;
+    background-color: #D17A69;
+}
+
+.main {
+    margin: auto;
+    max-width: 310px;
+}
+
+.mainLabel {
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: #B1BDC4e;
+    background-color: #D17A69;
+}
+
+.login > label{
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: #B1BDC4;
+    background-color: #758C98;
+}
+
+.login > input{
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    border-color: #B1BDC4;
+}
