@@ -25,7 +25,7 @@ SECRET_KEY = 'k!!2)4y+rg^f9w&41)qj!*qw4c-$5pb^5io_xm-v)-m%5#j1y*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', 'tta-inventory-prototype.herokuapp.com']
 
 
 # Application definition
