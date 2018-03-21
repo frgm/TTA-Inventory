@@ -1,1 +1,1 @@
-web: gunicorn ttainv.wsgi --log-file
+web: gunicorn ttainv.wsgi
