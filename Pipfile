@@ -10,6 +10,7 @@ sklearn = "*"
 scipy = "*"
 numpy = "*"
 whitenoise = "*"
+dj-database-url = "*"
 
 [dev-packages]
 
