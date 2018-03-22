@@ -5,8 +5,9 @@
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
-        <script src="./mainApp/static/index.js"></script>
-        <link rel="stylesheet" type="text/css" href="../static/style.css">
+        {% load static %}
+        <script src="{% static index.js %}"></script>
+        <link rel="stylesheet" type="text/css" href="{% static style.css %}">
         <!--  GET CLIENT ID   
         <meta name="google-signin-client_id" content="YOUR_CLIENT_ID.apps.googleusercontent.com">
         -->

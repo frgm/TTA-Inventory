@@ -9,6 +9,7 @@ gunicorn = "*"
 sklearn = "*"
 scipy = "*"
 numpy = "*"
+whitenoise = "*"
 
 [dev-packages]
 
