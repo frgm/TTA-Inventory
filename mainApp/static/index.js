@@ -35,6 +35,9 @@ function login(){
                     break;
                 case 'report':
                     window.location.href = 'report';
+                    break:
+                default:
+                    alert('Role error')
             }
         }
         else if(!(response.success)){
