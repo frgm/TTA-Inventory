@@ -6,6 +6,7 @@ import datetime as dt
 import csv
 import mainApp.models as md
 import mainApp.algorithms as algo
+import json
 
 def adminInv(request):
     return render_to_response("adminInv.html")
@@ -33,7 +34,8 @@ class dbReport(View):
         
     @csrf_exempt
     def post(self,request):
-        for item in request:
+        report = json.loads(request.POST['report'])
+        for item in report:
             id = md.Products.objects.filter(Name=item).values('ID_Prod')
             r = md.Report(ID_Loc=request.session['ID_Loc_Usr'], ID_Emp=request.session['ID_Emp_Usr'], ID_Prod=id, Quantity=request[item], Date=dt.datetime.now().strftime("%d-%m-%Y"))
             r.save()
@@ -79,7 +81,7 @@ class dbDistribution(View):
 class dbAdminPro(View):
     @csrf_exempt
     def post(self, request):
-        print(request.POST) 
+        #print(request.POST) 
         type = request.POST['type']
         data = request.POST['data']
         csvdata = csv.reader(data.split('\n'))
