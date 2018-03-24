@@ -14,17 +14,35 @@
     background-color: #758C98;
 }
 
-body {
-    margin: auto;
-    max-width: 310px;
-    background-color: #758C98;
-    font-family: "Trebuchet MS", sans-serif;
+
+@media (min-width:320px)  { 
+    body {
+        margin: auto;
+        max-width: 310px;
+        background-color: #758C98;
+        font-family: "Trebuchet MS", sans-serif;
+    }
+
+    .loginBody{
+        margin: auto;
+        max-width: 310px;
+        background-color: #D17A69;
+    }
 }
 
-.loginBody{
-    margin: auto;
-    max-width: 310px;
-    background-color: #D17A69;
+@media (min-width:481px)  {
+    body {
+        margin: auto;
+        max-width: 930px;
+        background-color: #758C98;
+        font-family: "Trebuchet MS", sans-serif;
+    }
+
+    .loginBody{
+        margin: auto;
+        max-width: 930px;
+        background-color: #D17A69;
+    }
 }
 
 .main {
