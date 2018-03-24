@@ -35,7 +35,7 @@ function login(){
                     break;
                 case 'report':
                     window.location.href = 'report';
-                    break:
+                    break;
                 default:
                     alert('Role error');
             }
