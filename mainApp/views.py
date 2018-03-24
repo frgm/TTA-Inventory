@@ -9,21 +9,31 @@ import mainApp.algorithms as algo
 import json
 
 def adminInv(request):
+    if request.session['Role'] != 'admin':
+        return render_to_response("error.html")
     return render_to_response("adminInv.html")
     
 def adminPro(request):
+    #if request.session['Role'] != 'pro':
+    #    return render_to_response("error.html")
     return render_to_response("adminPro.html")
 
 def distribution(request):
+    if request.session['Role'] != 'distribution':
+        return render_to_response("error.html")
     return render_to_response("distribution.html")
 
 def index(request):
     return render_to_response("index.html")
 
 def production(request):
+    if request.session['Role'] != 'production':
+        return render_to_response("error.html")
     return render_to_response("production.html")
     
 def report(request):
+    if request.session['Role'] != 'report':
+        return render_to_response("error.html")
     return render_to_response("report.html")
 
 class dbReport(View):
@@ -87,7 +97,7 @@ class dbAdminPro(View):
         csvdata = csv.reader(data.split('\n'))
         if type == 'Employees':
             for row in csvdata:
-                i = md.Employees(Name=row[0], Password=row[1], Role=row[2])
+                i = md.Employees(Name=row[0], Password=row[1], Role=row[2], ID_Loc=row[3])
         elif type == 'Products':
             for row in csvdata:
                 i = md.Products(Name=row[0], Material=row[1])
@@ -123,7 +133,8 @@ class login(View):
         e = md.Employees.objects.filter(Name=name).filter(Password=pasw)
         if e.count():
             print(e.query)
-            request.session['ID_Loc_Usr'] = e[0].ID_Emp
+            request.session['ID_Loc_Usr'] = e[0].ID_Loc
+            request.session['Role'] = e[0].Role
             return JsonResponse({'success' : True, 'role' : e[0].Role})
         else:
             return JsonResponse({'success' : False})

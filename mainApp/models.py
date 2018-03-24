@@ -5,6 +5,7 @@ class Employees(models.Model):
     Name = models.CharField(max_length=200, default='') #Or phone number
     Password = models.CharField(max_length=200, default='')
     Role = models.CharField(max_length=200, default='')
+    ID_Loc = models.IntegerField(default=0) #not key, can repeat. Keep track of locations
     
     def __str__(self):
         return self.ID_Emp
@@ -67,4 +68,4 @@ class Distribution(models.Model):
     Date = models.DateTimeField('')
     
     def __str__(self):
-        return self.ID_Loc + self.ID_Prod + self.Quantity + self.Date
+        return self.ID_Loc + self.ID_Prod + self.Quantity + self.Date       
