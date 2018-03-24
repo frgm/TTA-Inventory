@@ -28,6 +28,11 @@
         max-width: 310px;
         background-color: #D17A69;
     }
+    
+    .main {
+        margin: auto;
+        max-width: 310px;
+    }
 }
 
 @media (min-width:481px)  {
@@ -43,12 +48,14 @@
         max-width: 930px;
         background-color: #D17A69;
     }
+    
+    .main {
+        margin: auto;
+        max-width: 930px;
+    }
 }
 
-.main {
-    margin: auto;
-    max-width: 310px;
-}
+
 
 .mainLabel {
     border-style: solid;
