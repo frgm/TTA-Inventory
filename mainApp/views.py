@@ -9,17 +9,17 @@ import mainApp.algorithms as algo
 import json
 
 def adminInv(request):
-    if request.session['Role'] != 'admin':
+    if 'Role' not in request.session or request.session['Role'] != 'admin' :
         return render_to_response("error.html")
     return render_to_response("adminInv.html")
     
 def adminPro(request):
-    #if request.session['Role'] != 'pro':
+    #if 'Role' not in request.session or request.session['Role'] != 'pro':
     #    return render_to_response("error.html")
     return render_to_response("adminPro.html")
 
 def distribution(request):
-    if request.session['Role'] != 'distribution':
+    if 'Role' not in request.session or request.session['Role'] != 'distribution':
         return render_to_response("error.html")
     return render_to_response("distribution.html")
 
@@ -27,12 +27,12 @@ def index(request):
     return render_to_response("index.html")
 
 def production(request):
-    if request.session['Role'] != 'production':
+    if 'Role' not in request.session or request.session['Role'] != 'production':
         return render_to_response("error.html")
     return render_to_response("production.html")
     
 def report(request):
-    if request.session['Role'] != 'report':
+    if 'Role' not in request.session or request.session['Role'] != 'report':
         return render_to_response("error.html")
     return render_to_response("report.html")
 
