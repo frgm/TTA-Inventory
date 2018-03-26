@@ -21,7 +21,7 @@ function login(){
     }).done(function(response){
         if(response.success){
             switch(response.role){
-                case 'pro':
+                case 'adminPro':
                     window.location.href = 'adminPro';
                     break;
                 case 'admin':

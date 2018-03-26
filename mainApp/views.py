@@ -68,9 +68,16 @@ class dbProduction(View):
         prodVal['usage'] = usage
         prodVal['dailyQuotas'] = dQuotas
         prodVal['dailyusage'] = dUsage
-        prodVal['success'] = True
+        prodVal['success'] = True        
+        r = md.PredictedRequisition(ID_Loc=request.session['ID_Loc_Usr'], Quantity=dUsage, Date=dt.datetime.now().strftime("%d-%m-%Y"))
+        r.save()
         return JsonResponse(prodVal)
-        
+
+    def post(self, request):
+        todayDate =  dt.datetime.now()
+        qnt = request.POST['quantity']
+        r = md.Requisition(ID_Loc=request.session['ID_Loc_Usr'], Quantity=qnt, Date=dt.datetime.now().strftime("%d-%m-%Y"))
+        r.save()        
 
 class dbDistribution(View):
     @csrf_exempt
@@ -86,7 +93,6 @@ class dbDistribution(View):
             locs_out[loc.Name] = {"address" : loc.Address, "coords" : {'lat' : loc.Latitude, 'lng' : loc.Longitude}, 'items' : i}
         locs_out['success'] = True
         return JsonResponse(locs_out)
-
 
 class dbAdminPro(View):
     @csrf_exempt
@@ -104,6 +110,9 @@ class dbAdminPro(View):
         elif type == 'Locations':
             for row in csvdata:
                 i = md.Locations(Name=row[0], Address=row[1], Latitude=row[2], Longitude=row[3])
+        elif type == 'Distributions':
+            for row in csvdata:
+                i = md.Distributions(Name=row[0], Address=row[1], Latitude=row[2], Longitude=row[3])
         else:
             return JsonResponse({'success': False})
         i.save()
@@ -121,10 +130,10 @@ class dbAdminInv(View):
             pastValues.append(q[0].Quantity)
         proyectedValues = []
         for i in range(2,5):
-            p = algo.predictRegression((todayDate + dt.timedelta(days=i)).strftime("%d-%m-%Y"))
+            p,_ = algo.predictRegression((todayDate + dt.timedelta(days=i)).strftime("%d-%m-%Y"))
             proyectedValues.append(p)
         return JsonResponse({success: True, 'today': today, 'tomorrow': tomorrow, 'pastValues': pastValues, 'proyectedValues': proyectedValues, 'precision': precision})   
-    
+        
 class login(View):
     @csrf_exempt
     def post(self, request):
@@ -134,6 +143,7 @@ class login(View):
         if e.count():
             print(e.query)
             request.session['ID_Loc_Usr'] = e[0].ID_Loc
+            request.session['ID_Emp_Usr'] = e[0].ID_Emp
             request.session['Role'] = e[0].Role
             return JsonResponse({'success' : True, 'role' : e[0].Role})
         else:

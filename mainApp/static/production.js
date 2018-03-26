@@ -37,6 +37,7 @@ function makeForm(data){
     
     $totals = $('<div id="divTotals" class="divProdItem sliding" style="display: none"></div>');
     $totals.append('<label>Hoy '+ today +' debes usar: '+ data.dailyUsage +' quintales</label>')
+    $totals.append('<label>Se han usado hoy <input type="text" id="txtTotalInput"></input> quintales de harina<input type="button" onClick="sendUsage"></input></label>')
     $("#divProduction").append('<label id="label3" class="lblProdItem slideClick">Totales<label></br>');    
     $("#divProduction").append($totals);
     $("#divProduction").append('</br></br>');
@@ -46,6 +47,17 @@ function makeForm(data){
     });
 }
 
-
+function sendUsage(){
+    usage = $("#txtTotalInput").val()
+    $.ajax({
+        method: 'POST',
+        url : 'production/db',
+        data: {'usage':usage}
+    }).done(function(response){
+        if(response.success){
+            alert('Enviado')
+        }
+    });    
+}
             
             
