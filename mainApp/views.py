@@ -110,9 +110,9 @@ class dbAdminPro(View):
         elif type == 'Locations':
             for row in csvdata:
                 i = md.Locations(Name=row[0], Address=row[1], Latitude=row[2], Longitude=row[3])
-        elif type == 'Distributions':
+        elif type == 'Restock':
             for row in csvdata:
-                i = md.Distributions(Name=row[0], Address=row[1], Latitude=row[2], Longitude=row[3])
+                i = md.Restock(ID_Loc=row[0], ID_Prod=row[1], Quantity=row[2])
         else:
             return JsonResponse({'success': False})
         i.save()
