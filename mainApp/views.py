@@ -85,7 +85,7 @@ class dbDistribution(View):
         locs = md.Locations.objects.all()
         locs_out = {};
         for loc in locs:
-            itms = md.Stock.objects.filter(ID_Loc = loc.ID_Loc)
+            itms = md.Restock.objects.filter(ID_Loc = loc.ID_Loc)
             i = {}
             for itm in itms:
                 iname = md.Products.objects.filter(ID_Prod=itm.ID_Prod).get()

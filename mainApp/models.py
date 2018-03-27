@@ -60,7 +60,7 @@ class Report(models.Model):
         return self.ID_Loc + self.ID_Prod + self.ID_Emp + self.Quantity + self.Date
 
         
-class Stock(models.Model):
+class Restock(models.Model):
     ID_Loc = models.ForeignKey('Locations', on_delete=models.CASCADE)
     ID_Prod = models.ForeignKey('Products', on_delete=models.CASCADE)
     Quantity = models.IntegerField(default=0)
@@ -69,7 +69,7 @@ class Stock(models.Model):
         return self.ID_Loc + self.ID_Prod + self.Quantity
 
         
-class Distribution(models.Model): 
+class Distribution(models.Model): #currently unused
     ID_Loc = models.ForeignKey('Locations', on_delete=models.CASCADE)
     ID_Prod = models.ForeignKey('Products', on_delete=models.CASCADE)
     Quantity = models.IntegerField(default=0)
