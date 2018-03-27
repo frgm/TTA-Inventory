@@ -112,7 +112,9 @@ class dbAdminPro(View):
                 i = md.Locations(Name=row[0], Address=row[1], Latitude=row[2], Longitude=row[3])
         elif type == 'Restock':
             for row in csvdata:
-                i = md.Restock(ID_Loc=row[0], ID_Prod=row[1], Quantity=row[2])
+                loc = md.Locations.objects.get(ID_Loc=row[0])
+                prod = md.Products.objects.get(ID_Prod=row[1])
+                i = md.Restock(ID_Loc=loc, ID_Prod=prod, Quantity=row[2])
         else:
             return JsonResponse({'success': False})
         i.save()
