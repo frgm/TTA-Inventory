@@ -39,7 +39,7 @@ function makeReport(items){
     }
     $.ajax({
         method: 'POST',
-        url = 'report/db',
+        url : 'report/db',
         data: {'report' : reportString}
     }).done(function(response){
         if(response.success){
