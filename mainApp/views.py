@@ -47,7 +47,7 @@ class dbReport(View):
         report = json.loads(request.POST['report'])
         for item in report:
             id = md.Products.objects.filter(Name=item).values('ID_Prod')
-            r = md.Report(ID_Loc=request.session['ID_Loc_Usr'], ID_Emp=request.session['ID_Emp_Usr'], ID_Prod=id, Quantity=request[item], Date=dt.datetime.now().strftime("%d-%m-%Y"))
+            r = md.Report(ID_Loc=request.session['ID_Loc_Usr'], ID_Emp=request.session['ID_Emp_Usr'], ID_Prod=id, Quantity=request[item], Date=dt.datetime.now())
             r.save()
         return JsonResponse({'success': True, 'pk': r.pk});
 
@@ -70,7 +70,7 @@ class dbProduction(View):
         prodVal['dailyusage'] = dUsage
         prodVal['success'] = True
         loc = md.Locations.objects.get(ID_Loc=request.session['ID_Loc_Usr'])
-        r = md.PredictedRequisition(ID_Loc=loc, Quantity=dUsage, Date=dt.datetime.now().strftime("%d-%m-%Y"))
+        r = md.PredictedRequisition(ID_Loc=loc, Quantity=dUsage, Date=dt.datetime.now())
         r.save()
         return JsonResponse(prodVal)
 
@@ -78,7 +78,7 @@ class dbProduction(View):
         todayDate =  dt.datetime.now()
         qnt = request.POST['quantity']
         loc = md.Locations.objects.get(ID_Loc=request.session['ID_Loc_Usr'])
-        r = md.Requisition(ID_Loc=loc, Quantity=qnt, Date=dt.datetime.now().strftime("%d-%m-%Y"))
+        r = md.Requisition(ID_Loc=loc, Quantity=qnt, Date=dt.datetime.now())
         r.save()        
 
 class dbDistribution(View):
