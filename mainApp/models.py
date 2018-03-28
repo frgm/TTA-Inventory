@@ -49,7 +49,7 @@ class PredictedRequisition(models.Model):
     def __str__(self):
         return self.ID_Loc + self.ID_Prod + self.Quantity + self.Date
 
-class Report(models.Model):
+class Report(models.Model): #stock of each item per day
     ID_Emp = models.ForeignKey('Employees', on_delete=models.CASCADE)
     ID_Loc = models.ForeignKey('Locations', on_delete=models.CASCADE)
     ID_Prod = models.ForeignKey('Products', on_delete=models.CASCADE)
@@ -60,7 +60,7 @@ class Report(models.Model):
         return self.ID_Loc + self.ID_Prod + self.ID_Emp + self.Quantity + self.Date
 
         
-class Restock(models.Model):
+class Restock(models.Model): #stock of each item needed
     ID_Loc = models.ForeignKey('Locations', on_delete=models.CASCADE)
     ID_Prod = models.ForeignKey('Products', on_delete=models.CASCADE)
     Quantity = models.IntegerField(default=0)
