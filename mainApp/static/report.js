@@ -2,7 +2,7 @@ $(function() {
     //var itemList = ["testItem1","testItem2","testItem3"]; //change this
     today = new Intl.DateTimeFormat('es-CL',dateFormat).format(new Date());
     var dateFormat = { year: 'numeric', month: 'short', day: '2-digit'};
-        $.ajax({
+    $.ajax({
         method: 'GET',
         url : 'report/db',
         data: {}
@@ -37,13 +37,5 @@ function makeReport(items){
         report[items[i]] = $('#'+items[i]).val;
         reportString = JSON.stringify(report);
     }
-    $.ajax({
-        method: 'POST',
-        url : 'report/db',
-        data: {'report' : reportString}
-    }).done(function(response){
-        if(response.success){
-            alert('OK');
-        }
-    });
+
 }
