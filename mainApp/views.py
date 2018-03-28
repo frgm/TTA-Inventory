@@ -68,15 +68,17 @@ class dbProduction(View):
         prodVal['usage'] = usage
         prodVal['dailyQuotas'] = dQuotas
         prodVal['dailyusage'] = dUsage
-        prodVal['success'] = True        
-        r = md.PredictedRequisition(ID_Loc=request.session['ID_Loc_Usr'], Quantity=dUsage, Date=dt.datetime.now().strftime("%d-%m-%Y"))
+        prodVal['success'] = True
+        loc = md.Locations.objects.get(ID_Loc=request.session['ID_Loc_Usr'])
+        r = md.PredictedRequisition(ID_Loc=loc, Quantity=dUsage, Date=dt.datetime.now().strftime("%d-%m-%Y"))
         r.save()
         return JsonResponse(prodVal)
 
     def post(self, request):
         todayDate =  dt.datetime.now()
         qnt = request.POST['quantity']
-        r = md.Requisition(ID_Loc=request.session['ID_Loc_Usr'], Quantity=qnt, Date=dt.datetime.now().strftime("%d-%m-%Y"))
+        loc = md.Locations.objects.get(ID_Loc=request.session['ID_Loc_Usr'])
+        r = md.Requisition(ID_Loc=loc, Quantity=qnt, Date=dt.datetime.now().strftime("%d-%m-%Y"))
         r.save()        
 
 class dbDistribution(View):
