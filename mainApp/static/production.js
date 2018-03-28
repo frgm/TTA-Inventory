@@ -9,6 +9,7 @@ $(function() {
     }).done(function(response){
         if(response.success){
             delete response.success;
+            console.log(response)
             makeForm(response);
         }
     });
