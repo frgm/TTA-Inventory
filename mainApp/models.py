@@ -35,7 +35,7 @@ class Requisition(models.Model):
     ID_Loc = models.ForeignKey('Locations', on_delete=models.CASCADE)
     #ID_Prod = models.ForeignKey('Products', on_delete=models.CASCADE)
     Quantity = models.IntegerField(default=0)
-    Date = models.DateTimeField('',primary_key=True)
+    Date = models.DateField('',primary_key=True)
     
     def __str__(self):
         return self.ID_Loc + self.ID_Prod + self.Quantity + self.Date
@@ -44,7 +44,7 @@ class PredictedRequisition(models.Model):
     ID_Loc = models.ForeignKey('Locations', on_delete=models.CASCADE)
     #ID_Prod = models.ForeignKey('Products', on_delete=models.CASCADE)
     Quantity = models.IntegerField(default=0)
-    Date = models.DateTimeField('',primary_key=True)
+    Date = models.DateField('',primary_key=True)
     
     def __str__(self):
         return self.ID_Loc + self.ID_Prod + self.Quantity + self.Date
@@ -73,7 +73,7 @@ class Distribution(models.Model): #currently unused
     ID_Loc = models.ForeignKey('Locations', on_delete=models.CASCADE)
     ID_Prod = models.ForeignKey('Products', on_delete=models.CASCADE)
     Quantity = models.IntegerField(default=0)
-    Date = models.DateTimeField('')
+    Date = models.DateField('')
     
     def __str__(self):
         return self.ID_Loc + self.ID_Prod + self.Quantity + self.Date       
