@@ -37,5 +37,13 @@ function makeReport(items){
         report[items[i]] = $('#'+items[i]).val;
         reportString = JSON.stringify(report);
     }
-
+    $.ajax({
+        method: 'POST',
+        url : 'report/db',
+        data: {'report' : reportString}
+    }).done(function(response){
+        if(response.success){
+            alert('OK');
+        }
+    });
 }
