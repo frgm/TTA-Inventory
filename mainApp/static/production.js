@@ -9,13 +9,13 @@ $(function() {
     }).done(function(response){
         if(response.success){
             delete response.success;
-            console.log(response)
             makeForm(response);
         }
     });
 });
 
 function makeForm(data){
+    data.usage = JSON.parse(data.usage) 
     $usageReport = $('<div id="divUsageReport" class="divProdItem sliding" style="display: none"></div>');
     $.each(data.usage, function(key, value){
         $usageReport.append('<label class="lblUsageDay">'+ key +' : '+ value +'quintales</label></br>');
