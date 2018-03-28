@@ -65,7 +65,7 @@ class dbProduction(View):
         except:
             dQuotas = -1
         dUsage,_ = algo.predictRegression(dt.datetime.now().strftime("%d-%m-%Y"))
-        prodVal['usage'] = usage
+        prodVal['usage'] = json.dumps(usage)
         prodVal['dailyQuotas'] = dQuotas
         prodVal['dailyusage'] = dUsage
         prodVal['success'] = True
