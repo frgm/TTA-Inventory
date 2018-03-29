@@ -33,9 +33,10 @@ function makeForm(items){
 
 function makeReport(items){
     report = {};
-    alert(items)
+    itemArray = items.split(',')
     for(var i = 0; i < items.length; i++){
         report[items[i]] = $('#'+items[i]).val;
+        alert(report[items[i]])
     }
     reportString = JSON.stringify(report);
     $.ajax({
