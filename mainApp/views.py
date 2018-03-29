@@ -49,13 +49,14 @@ class dbReport(View):
     def post(self,request):
         try:
             report = json.loads(request.POST['report'])
+            print(report)
             for item in report:
                 id = md.Products.objects.filter(Name=item).values('ID_Prod')
                 r = md.Report(ID_Loc=request.session['ID_Loc_Usr'], ID_Emp=request.session['ID_Emp_Usr'], ID_Prod=id, Quantity=request[item], Date=dt.datetime.now())
                 r.save()
             return JsonResponse({'success': True, 'pk': r.pk})
         except Exception as ex:
-            return JsonResponse({'success': False, 'exception':type(ex).__name__})
+            return JsonResponse({'success': False, 'exception':type(ex).__name__, 'item':item})
 
 class dbProduction(View):
     @csrf_exempt

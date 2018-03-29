@@ -36,8 +36,6 @@ function makeReport(event){
     report = {};
     for(var i = 0; i < items.length; i++){
         report[items[i]] = $('#'+items[i]).val();
-        alert($('#'+items[i]).val());
-        alert(items[i]);
     }
     reportString = JSON.stringify(report);
     $.ajax({
