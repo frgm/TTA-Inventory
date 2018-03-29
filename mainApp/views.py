@@ -40,6 +40,7 @@ class dbReport(View):
     @csrf_exempt
     def get(self, request):
         r = md.Products.objects.values_list('Name',flat=True)
+        items = ""
         for item in r:
             items = "%s,%s" % (items, item)
         return JsonResponse({'success': True, 'items': items})
