@@ -54,8 +54,8 @@ class dbReport(View):
                 r = md.Report(ID_Loc=request.session['ID_Loc_Usr'], ID_Emp=request.session['ID_Emp_Usr'], ID_Prod=id, Quantity=request[item], Date=dt.datetime.now())
                 r.save()
             return JsonResponse({'success': True, 'pk': r.pk})
-        except:
-            return JsonResponse({'success': False})
+        except Exception as ex:
+            return JsonResponse({'success': False, 'exception':type(ex).__name__})
 
 class dbProduction(View):
     @csrf_exempt

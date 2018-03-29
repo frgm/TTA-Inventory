@@ -33,10 +33,11 @@ function makeForm(items){
 
 function makeReport(items){
     report = {};
+    alert(items)
     for(var i = 0; i < items.length; i++){
         report[items[i]] = $('#'+items[i]).val;
-        reportString = JSON.stringify(report);
     }
+    reportString = JSON.stringify(report);
     $.ajax({
         method: 'POST',
         url : 'report/db',
