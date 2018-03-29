@@ -34,8 +34,7 @@ function makeForm(items){
 function makeReport(items){
     report = {};
     for(var i = 0; i < items.length; i++){
-        report[items[i]] = $('#'+items[i]).val;
-        alert(report[items[i]])
+        report[items[i]] = $('#'+items[i]).val();
     }
     reportString = JSON.stringify(report);
     $.ajax({
