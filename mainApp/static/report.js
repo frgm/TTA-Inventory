@@ -9,7 +9,7 @@ $(function() {
     }).done(function(response){
         if(response.success){
             delete response.success;
-            $("#btnReport").click(makeReport(response.items.split(',')));
+            $("#btnReport").bind('click', {param: response.items.split(',')}, makeReport);
             makeForm(response.items.split(','));
         }
     });
@@ -31,16 +31,15 @@ function makeForm(items){
     });
 }
 
-function makeReport(items){
+function makeReport(event){
+    items = event.data.param;
     report = {};
     for(var i = 0; i < items.length; i++){
-        alert(i);
         report[items[i]] = $('#'+items[i]).val();
         alert($('#'+items[i]).val());
-        alert(report);
+        alert(items[i]);
     }
     reportString = JSON.stringify(report);
-    alert(reportString);
     $.ajax({
         method: 'POST',
         url : 'report/db',
