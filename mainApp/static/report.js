@@ -9,7 +9,7 @@ $(function() {
     }).done(function(response){
         if(response.success){
             delete response.success;
-            $("#btnReport").click(makeReport(response.items.split(','));
+            $("#btnReport").click(makeReport(response.items.split(',')));
             makeForm(response.items.split(','));
         }
     });
