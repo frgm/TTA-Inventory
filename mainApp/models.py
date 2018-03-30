@@ -57,7 +57,7 @@ class Report(models.Model): #stock of each item per day
     Date = models.DateField('')
     
     def __str__(self):
-        return self.ID_Loc + self.ID_Prod + self.ID_Emp + self.Quantity + self.Date.strftime('%d-/%m-/%Y')
+        return self.ID_Loc.ID_Loc + self.ID_Prod.ID_Prod + self.ID_Emp.ID_Emp + self.Quantity + self.Date.strftime('%d-/%m-/%Y')
 
         
 class Restock(models.Model): #stock of each item needed
