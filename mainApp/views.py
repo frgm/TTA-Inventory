@@ -65,7 +65,8 @@ class dbProduction(View):
     def get(self, request):
         prodVal = {}
         daysAgo = dt.datetime.now() - dt.timedelta(days=2)
-        repo = md.Report.objects.filter(Date__lt = daysAgo)
+        #repo = md.Report.objects.filter(Date__lt = daysAgo)
+        repo = md.Report.objects.filter(Date = dt.datetime.now())
         usage = {}
         for r in repo:
             usage[r.Date.strftime("%d-%m-%Y")] = r.Quantity
