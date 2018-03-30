@@ -69,6 +69,7 @@ class dbProduction(View):
         repo = md.Report.objects.filter(Date = dt.datetime.now())
         usage = {}
         for r in repo:
+            print(r)
             usage[r.Date.strftime("%d-%m-%Y")] = r.Quantity
         try:
             dQuotas = md.Requisition.objects.filter(ID_Loc=request.session['ID_Loc_Usr']).filter(Date__lt = daysAgo)[0].Quantity
