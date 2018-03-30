@@ -65,16 +65,23 @@ class dbProduction(View):
     def get(self, request):
         prodVal = {}
         daysAgo = dt.datetime.now() - dt.timedelta(days=2)
-        #repo = md.Report.objects.filter(Date__lt = daysAgo)
-        repo = md.Report.objects.filter(Date = dt.datetime.now())
-        usage = {}
-        for r in repo:
-            print(r.Quantity)
-            usage[r.Date.strftime("%d-%m-%Y")] = r.Quantity
         try:
-            dQuotas = md.Requisition.objects.filter(ID_Loc=request.session['ID_Loc_Usr']).filter(Date__lt = daysAgo)[0].Quantity
+            #req = md.Requisition.objects.filter(Date__lt = daysAgo)
+            req = md.Requisition.objects.filter(Date = dt.datetime.now())
+            usage = {}
+            for r in req:
+                usage[r.Date.strftime("%d-%m-%Y")] = r.Quantity
         except:
-            dQuotas = -1
+            usage = -1         
+        try:
+            #rep = md.Report.objects.filter(Date__lt = daysAgo)
+            rep = md.Report.objects.filter(Date = dt.datetime.now())
+            dQuotas = {}
+            for r in rep:
+                prod = md.Products.objects.get(ID_Prod= r.ID_Prod)
+                usage[prod.Name] = r.Quantity
+        except:
+            dQuotas = -1            
         dUsage,_ = algo.predictRegression(dt.datetime.now().strftime("%d-%m-%Y"))
         prodVal['usage'] = json.dumps(usage)
         prodVal['dailyQuotas'] = dQuotas

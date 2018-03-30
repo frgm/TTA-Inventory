@@ -15,10 +15,10 @@ $(function() {
 });
 
 function makeForm(data){
-    data.usage = JSON.parse(data.usage) 
+    data = JSON.parse(data) 
     $usageReport = $('<div id="divUsageReport" class="divProdItem sliding" style="display: none"></div>');
     $.each(data.usage, function(key, value){
-        $usageReport.append('<label class="lblUsageDay">'+ key +' : '+ value +'quintales</label></br>');
+        $usageReport.append('<label class="lblUsageDay">'+ key +' : '+ value +' quintales</label></br>');
     });
     $("#divProduction").append('<label id="label1" class="lblProdItem slideClick">Reporte uso de Harina<label></br>');
     $("#divProduction").append($usageReport);
