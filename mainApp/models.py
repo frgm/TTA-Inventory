@@ -38,7 +38,7 @@ class Requisition(models.Model):
     Date = models.DateField('',primary_key=True)
     
     def __str__(self):
-        return self.ID_Loc + self.ID_Prod + self.Quantity + self.Date
+        return self.ID_Loc + self.ID_Prod + self.Quantity + self.Date.strftime('%d-/%m-/%Y')
 
 class PredictedRequisition(models.Model):
     ID_Loc = models.ForeignKey('Locations', on_delete=models.CASCADE)
@@ -47,7 +47,7 @@ class PredictedRequisition(models.Model):
     Date = models.DateField('',primary_key=True)
     
     def __str__(self):
-        return self.ID_Loc + self.ID_Prod + self.Quantity + self.Date
+        return self.ID_Loc + self.ID_Prod + self.Quantity + self.Date.strftime('%d-/%m-/%Y')
 
 class Report(models.Model): #stock of each item per day
     ID_Emp = models.ForeignKey('Employees', on_delete=models.CASCADE)
@@ -57,7 +57,7 @@ class Report(models.Model): #stock of each item per day
     Date = models.DateField('')
     
     def __str__(self):
-        return self.ID_Loc + self.ID_Prod + self.ID_Emp + self.Quantity + self.Date
+        return self.ID_Loc + self.ID_Prod + self.ID_Emp + self.Quantity + self.Date.strftime('%d-/%m-/%Y')
 
         
 class Restock(models.Model): #stock of each item needed
@@ -76,4 +76,4 @@ class Distribution(models.Model): #currently unused
     Date = models.DateField('')
     
     def __str__(self):
-        return self.ID_Loc + self.ID_Prod + self.Quantity + self.Date       
+        return self.ID_Loc + self.ID_Prod + self.Quantity + self.Date.strftime('%d-/%m-/%Y')      
