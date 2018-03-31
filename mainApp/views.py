@@ -97,7 +97,8 @@ class dbProduction(View):
         qnt = request.POST['usage']
         loc = md.Locations.objects.get(ID_Loc=request.session['ID_Loc_Usr'])
         r = md.Requisition(ID_Loc=loc, Quantity=qnt, Date=dt.datetime.now())
-        r.save()        
+        r.save()
+        return JsonResponse({'succes':True})        
 
 class dbDistribution(View):
     @csrf_exempt
