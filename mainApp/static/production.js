@@ -15,8 +15,8 @@ $(function() {
 });
 
 function makeForm(data){
-    data.usage = JSON.parse(data.usage)
-    data.dailyItemQuotas = JSON.parse(data.dailyItemQuotas) 
+    data.usage = JSON.parse(data.usage);
+    data.dailyItemQuotas = JSON.parse(data.dailyItemQuotas);
     $usageReport = $('<div id="divUsageReport" class="divProdItem sliding" style="display: none"></div>');
     $.each(data.usage, function(key, value){
         $usageReport.append('<label class="lblUsageDay">'+ key +' : '+ value +' quintales</label></br>');
