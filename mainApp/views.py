@@ -84,7 +84,7 @@ class dbProduction(View):
             dQuotas = -1            
         dUsage,_ = algo.predictRegression(dt.datetime.now().strftime("%d-%m-%Y"))
         prodVal['usage'] = json.dumps(usage)
-        prodVal['dailyQuotas'] = dQuotas
+        prodVal['dailyQuotas'] = json.dumps(dQuotas)
         prodVal['dailyusage'] = dUsage
         prodVal['success'] = True
         loc = md.Locations.objects.get(ID_Loc=request.session['ID_Loc_Usr'])
