@@ -83,6 +83,7 @@ class dbProduction(View):
         except:
             dQuotas = {"error":-1}            
         dUsage,_ = algo.predictRegression(dt.datetime.now().strftime("%d-%m-%Y"))
+        print(usage, dQuotas)
         prodVal['usage'] = json.dumps(usage)
         prodVal['dailyQuotas'] = json.dumps(dQuotas)
         prodVal['dailyusage'] = dUsage
@@ -90,7 +91,6 @@ class dbProduction(View):
         loc = md.Locations.objects.get(ID_Loc=request.session['ID_Loc_Usr'])
         r = md.PredictedRequisition(ID_Loc=loc, Quantity=dUsage, Date=dt.datetime.now())
         r.save()
-        print(prodVal)
         return JsonResponse(prodVal)
 
     def post(self, request):
