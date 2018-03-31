@@ -72,7 +72,7 @@ class dbProduction(View):
             for r in req:
                 usage[r.Date.strftime("%d-%m-%Y")] = r.Quantity
         except:
-            usage = -1         
+            usage = {'error':-1}         
         try:
             #rep = md.Report.objects.filter(Date__lt = daysAgo)
             rep = md.Report.objects.filter(Date = dt.datetime.now())
@@ -81,7 +81,7 @@ class dbProduction(View):
                 prod = md.Products.objects.get(ID_Prod= r.ID_Prod)
                 usage[prod.Name] = r.Quantity
         except:
-            dQuotas = -1            
+            dQuotas = {'error':-1}            
         dUsage,_ = algo.predictRegression(dt.datetime.now().strftime("%d-%m-%Y"))
         prodVal['usage'] = json.dumps(usage)
         prodVal['dailyQuotas'] = json.dumps(dQuotas)
