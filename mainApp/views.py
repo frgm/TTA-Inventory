@@ -66,24 +66,23 @@ class dbProduction(View):
         prodVal = {}
         daysAgo = dt.datetime.now() - dt.timedelta(days=2)
         try:
-            #req = md.Requisition.objects.filter(Date__lt = daysAgo)
-            req = md.Requisition.objects.filter(Date = dt.datetime.now())
-            usage = {}
+            req = md.Requisition.objects.filter(Date__lt = daysAgo)
+            #req = md.Requisition.objects.filter(Date = dt.datetime.now())
+            usage = {'empty':0}
             for r in req:
                 usage[r.Date.strftime("%d-%m-%Y")] = r.Quantity
         except:
-            usage = {"error":-1}         
+            usage = {'error':-1}         
         try:
-            #rep = md.Report.objects.filter(Date__lt = daysAgo)
-            rep = md.Report.objects.filter(Date = dt.datetime.now())
-            dQuotas = {}
+            rep = md.Report.objects.filter(Date__lt = daysAgo)
+            #rep = md.Report.objects.filter(Date = dt.datetime.now())
+            dQuotas = {'empty':0}
             for r in rep:
                 prod = md.Products.objects.get(ID_Prod= r.ID_Prod)
                 usage[prod.Name] = r.Quantity
         except:
-            dQuotas = {"error":-1}            
+            dQuotas = {'error':-1}            
         dUsage,_ = algo.predictRegression(dt.datetime.now().strftime("%d-%m-%Y"))
-        print(usage, dQuotas)
         prodVal['usage'] = json.dumps(usage)
         prodVal['dailyQuotas'] = json.dumps(dQuotas)
         prodVal['dailyusage'] = dUsage
