@@ -94,7 +94,7 @@ class dbProduction(View):
 
     def post(self, request):
         todayDate =  dt.datetime.now()
-        qnt = request.POST['quantity']
+        qnt = request.POST['usage']
         loc = md.Locations.objects.get(ID_Loc=request.session['ID_Loc_Usr'])
         r = md.Requisition(ID_Loc=loc, Quantity=qnt, Date=dt.datetime.now())
         r.save()        
