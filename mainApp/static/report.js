@@ -48,3 +48,21 @@ function makeReport(event){
         }
     });
 }
+
+function makeStock(event){
+    items = event.data.param;
+    restock = {};
+    for(var i = 0; i < items.length; i++){
+        restock[items[i]] = $('#'+items[i]).val();
+    }
+    reportString = JSON.stringify(restock);
+    $.ajax({
+        method: 'POST',
+        url : 'report/db',
+        data: {'restock' : reportString}
+    }).done(function(response){
+        if(response.success){
+            alert('OK');
+        }
+    });
+}

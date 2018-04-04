@@ -48,17 +48,25 @@ class dbReport(View):
     @csrf_exempt
     def post(self,request):
         try:
-            report = json.loads(request.POST['report'])
-            print(report)
-            for item in report:
-                prod = md.Products.objects.get(Name=item)
-                loc = md.Locations.objects.get(ID_Loc=request.session['ID_Loc_Usr'])
-                emp = md.Employees.objects.get(ID_Emp=request.session['ID_Emp_Usr'])
-                r = md.Report(ID_Loc=loc, ID_Emp=emp, ID_Prod=prod, Quantity=report[item], Date=dt.datetime.now())
-                r.save()
-            return JsonResponse({'success': True, 'pk': r.pk})
+            prod = md.Products.objects.get(Name=item)
+            loc = md.Locations.objects.get(ID_Loc=request.session['ID_Loc_Usr'])
+            emp = md.Employees.objects.get(ID_Emp=request.session['ID_Emp_Usr'])
+            if 'report' in request.POST:
+                report = json.loads(request.POST['report'])
+                for item in report:
+                    r = md.Report(ID_Loc=loc, ID_Emp=emp, ID_Prod=prod, Quantity=report[item], Date=dt.datetime.now())
+                    r.save()
+                return JsonResponse({'success': True, 'pk': r.pk})
+            elif 'restock' in request.POST
+                restock = json.loads(request.POST['restock'])
+                for item in restock:
+                    r = md.Restock(ID_Loc=loc, ID_Prod=prod, Quantity=report[item])
+                    r.save()
+                return JsonResponse({'success': True, 'pk': r.pk}) 
+            else:
+                return JsonResponse({'success': False, 'exception':"Key error'})
         except Exception as ex:
-            return JsonResponse({'success': False, 'exception':type(ex).__name__,})
+            return JsonResponse({'success': False, 'exception':type(ex).__name__})
 
 class dbProduction(View):
     @csrf_exempt

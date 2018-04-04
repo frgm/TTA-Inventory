@@ -20,7 +20,7 @@ function  makeEntry(table){
         data: {'type': table, 'data': vals}
     }).done(function(response){
         if(response.success){
-            alert(response.pk);
+            alert("Ingresado con indice: " + response.pk);
         }
     });
 }
@@ -33,7 +33,7 @@ function csvEntry(table){
         data: {'type': table, 'data': csv}
     }).done(function(response){
         if(response.success){
-            alert(response.pk);
+            alert("Ingresado con indice: " + response.pk);
         }
     });
 }
