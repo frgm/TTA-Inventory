@@ -6,13 +6,18 @@
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         {% load static %}
         <script src="{% static 'production.js' %}"></script>
+        <script src="{% static 'common.js' %}"></script>
         <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     </head>
     <body>
         <div class="mainLabel">
             <label>Produccion<label></br></br>
         </div>
+        <div id="dateTime">
+            <label>{% now "DATETIME_FORMAT" %}</label>
+        </div>
         <div id="divProduction" class="main">
         </div>
+        <label>Usuario: {{request.session.ID_Emp_Usr}}, Ubicación {{request.session.ID_Loc_Usr}}</label>
     </body>
 </html>

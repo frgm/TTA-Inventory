@@ -8,7 +8,7 @@ class Employees(models.Model):
     ID_Loc = models.IntegerField(default=0) #not key, can repeat. Keep track of locations
     
     def __str__(self):
-        return self.ID_Emp
+        return self.Name
 
         
 class Products(models.Model):
@@ -17,7 +17,7 @@ class Products(models.Model):
     Material = models.FloatField(default=0)
     
     def __str__(self):
-        return self.ID_Prod
+        return self.Name
 
         
 class Locations(models.Model):
@@ -28,7 +28,7 @@ class Locations(models.Model):
     Longitude = models.FloatField(default=0)
     
     def __str__(self):
-        return self.ID_Loc
+        return self.Name
 
         
 class Requisition(models.Model):

@@ -12,11 +12,15 @@
         <div class="mainLabel">
             <label>Reporte</label></br></br>
         </div>
+        <div id="dateTime">
+            <label>{% now "DATETIME_FORMAT" %}</label>
+        </div>
         </br>
         <label id="lblRegister" class="slideClick main">Registro de Productos</label>
         <div id="divReport" class="sliding main" style="display: none;">
             <input type="button" value="Crear Reporte" id="btnReport">
             <input type="button" value="Enviar Stock" id="btnRestock">
         </div>
+        <label>Usuario: {{request.session.ID_Emp_Usr}}, Ubicación {{request.session.ID_Loc_Usr}}</label>
     </body>
 </html>

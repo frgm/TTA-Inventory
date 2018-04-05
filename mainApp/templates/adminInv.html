@@ -10,6 +10,9 @@
         <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     </head>
     <body>
+        <div id="dateTime">
+            <label>{% now "DATETIME_FORMAT" %}</label>
+        </div>
         <label class="slideClick">Proyección de compra</label>
         <div id="divProyection" class="sliding main" style="display: none">
         </div>
@@ -17,5 +20,6 @@
         <label class="slideClick">Pedidos a realizar</label>
         <div id="divRequisition" class="sliding main" style="display: none">
         </div>
+    <label>Usuario: {{request.session.ID_Emp_Usr}}, Ubicación {{request.session.ID_Loc_Usr}}</label>
     </body>
 </html>

@@ -17,4 +17,5 @@ urlpatterns = [
     path('adminPro/db', dbAdminPro.as_view()),
     path('adminInv/db', dbAdminInv.as_view()),
     path('index/login', login.as_view())
+    path('sessionData', sessionData.as_view())
 ]

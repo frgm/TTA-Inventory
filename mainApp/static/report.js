@@ -13,8 +13,6 @@ $(function() {
             makeForm(response.items.split(','));
         }
     });
-    
-
 });
 
 function makeForm(items){

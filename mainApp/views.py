@@ -179,3 +179,11 @@ class login(View):
             return JsonResponse({'success' : True, 'role' : e[0].Role})
         else:
             return JsonResponse({'success' : False})
+            
+class sessionData(View):
+    try:
+        loc = md.Locations.objects.get(ID_Loc=request.session['ID_Loc_Usr']).Name
+        emp = md.Employees.objects.get(ID_Emp=request.session['ID_Emp_Usr']).Name
+        return JsonResponse({'success': True, 'location': loc, 'employee': emp})
+    except:
+        return JsonResponse({'success': False})
