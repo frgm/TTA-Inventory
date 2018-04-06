@@ -12,6 +12,7 @@
         <div class="mainLabel">
             <label>Reporte</label></br></br>
         </div>
+        </br>
         <div id="dateTime">
             <label>{% now "DATETIME_FORMAT" %}</label>
         </div>
@@ -21,6 +22,7 @@
             <input type="button" value="Crear Reporte" id="btnReport">
             <input type="button" value="Enviar Stock" id="btnRestock">
         </div>
+        </br>
         <label>Usuario: {{request.session.ID_Emp_Usr}}, Ubicación {{request.session.ID_Loc_Usr}}</label>
     </body>
 </html>

@@ -13,11 +13,13 @@
         <div class="mainLabel">
             <label>Produccion<label></br></br>
         </div>
+        </br>
         <div id="dateTime">
             <label>{% now "DATETIME_FORMAT" %}</label>
         </div>
         <div id="divProduction" class="main">
         </div>
+        </br>
         <label>Usuario: {{request.session.ID_Emp_Usr}}, Ubicación {{request.session.ID_Loc_Usr}}</label>
     </body>
 </html>

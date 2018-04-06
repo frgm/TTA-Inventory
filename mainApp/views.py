@@ -10,30 +10,30 @@ import json
 
 def adminInv(request):
     if 'Role' not in request.session or request.session['Role'] != 'admin' :
-        return render_to_response("error.html")
-    return render_to_response("adminInv.html")
+        return render(request,"error.html")
+    return render(request,"adminInv.html")
     
 def adminPro(request):
     #if 'Role' not in request.session or request.session['Role'] != 'pro':
-    #    return render_to_response("error.html")
-    return render_to_response("adminPro.html")
+    #    return render(request,"error.html")
+    return render(request,"adminPro.html")
 
 def distribution(request):
     if 'Role' not in request.session or request.session['Role'] != 'distribution':
-        return render_to_response("error.html")
-    return render_to_response("distribution.html")
+        return render(request,"error.html")
+    return render(request,"distribution.html")
 
 def index(request):
-    return render_to_response("index.html")
+    return render(request,"index.html")
 
 def production(request):
     if 'Role' not in request.session or request.session['Role'] != 'production':
-        return render_to_response("error.html")
-    return render_to_response("production.html")
+        return render(request,"error.html")
+    return render(request,"production.html")
     
 def report(request):
     if 'Role' not in request.session or request.session['Role'] != 'report':
-        return render("error.html")
+        return render(request,"error.html")
     return render(request,"report.html")
 
 class dbReport(View):
