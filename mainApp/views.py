@@ -33,8 +33,8 @@ def production(request):
     
 def report(request):
     if 'Role' not in request.session or request.session['Role'] != 'report':
-        return render_to_response("error.html")
-    return render_to_response("report.html")
+        return render("error.html")
+    return render(request,"report.html")
 
 class dbReport(View):
     @csrf_exempt
