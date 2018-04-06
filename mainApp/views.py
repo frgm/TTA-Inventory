@@ -57,7 +57,7 @@ class dbReport(View):
                     r = md.Report(ID_Loc=loc, ID_Emp=emp, ID_Prod=prod, Quantity=report[item], Date=dt.datetime.now())
                     r.save()
                 return JsonResponse({'success': True, 'pk': r.pk})
-            elif 'restock' in request.POST
+            elif 'restock' in request.POST:
                 restock = json.loads(request.POST['restock'])
                 for item in restock:
                     r = md.Restock(ID_Loc=loc, ID_Prod=prod, Quantity=report[item])
@@ -179,11 +179,3 @@ class login(View):
             return JsonResponse({'success' : True, 'role' : e[0].Role})
         else:
             return JsonResponse({'success' : False})
-            
-class sessionData(View):
-    try:
-        loc = md.Locations.objects.get(ID_Loc=request.session['ID_Loc_Usr']).Name
-        emp = md.Employees.objects.get(ID_Emp=request.session['ID_Emp_Usr']).Name
-        return JsonResponse({'success': True, 'location': loc, 'employee': emp})
-    except:
-        return JsonResponse({'success': False})

@@ -10,6 +10,7 @@ $(function() {
         if(response.success){
             delete response.success;
             $("#btnReport").bind('click', {param: response.items.split(',')}, makeReport);
+            $("#btnRestock").bind('click', {param: response.items.split(',')}, makeReport);
             makeForm(response.items.split(','));
         }
     });
