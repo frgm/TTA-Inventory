@@ -64,7 +64,7 @@ class dbReport(View):
                     r.save()
                 return JsonResponse({'success': True, 'pk': r.pk}) 
             else:
-                return JsonResponse({'success': False, 'exception':"Key error'})
+                return JsonResponse({'success': False, 'exception':"Key error"})
         except Exception as ex:
             return JsonResponse({'success': False, 'exception':type(ex).__name__})
 
