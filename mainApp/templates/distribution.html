@@ -10,13 +10,16 @@
         <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     </head>
     <body>
-        <div class="mainLabel">
-            <label>Distribucion</label></br></br>
+        <div>
+            <img src= "{% static 'Distributor_1.png' %}" alt="Productor">
+            <label> Información sobre sus entregas</label>
         </div>
+        <hr>
         </br>
         <div id="dateTime">
             <label>{% now "DATETIME_FORMAT" %}</label>
         </div>
+        <hr>
         </br>
         <div id="divDistribution" class="main">
         </div>

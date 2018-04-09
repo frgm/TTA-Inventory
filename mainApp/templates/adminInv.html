@@ -10,9 +10,16 @@
         <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     </head>
     <body>
+        <div>
+            <img src= "{% static 'Admin_1.png' %}" alt="Productor">
+            <label> Pedidos ha hacer</label>
+        </div>
+        <hr>
+        </br>
         <div id="dateTime">
             <label>{% now "DATETIME_FORMAT" %}</label>
         </div>
+        <hr>
         </br>
         <label class="slideClick">Proyección de compra</label>
         <div id="divProyection" class="sliding main" style="display: none">

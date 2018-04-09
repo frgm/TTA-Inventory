@@ -9,13 +9,16 @@
         <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
     </head>
     <body>
-        <div class="mainLabel">
-            <label>Reporte</label></br></br>
+        <div>
+            <img src= "{% static 'Reporter_1.png' %}" alt="Productor">
+            <label> Reportes sobre su panadería</label>
         </div>
+        <hr>
         </br>
         <div id="dateTime">
             <label>{% now "DATETIME_FORMAT" %}</label>
         </div>
+        <hr>
         </br>
         <label id="lblRegister" class="slideClick main">Registro de Productos</label>
         <div id="divReport" class="sliding main" style="display: none;">
