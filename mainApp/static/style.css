@@ -33,6 +33,10 @@
         margin: auto;
         max-width: 310px;
     }
+    
+    img {
+        max-width: 20px;
+    }
 }
 
 @media (min-width:481px)  {
@@ -52,6 +56,10 @@
     .main {
         margin: auto;
         max-width: 930px;
+    }
+    
+    img {
+        max-width: 60px;
     }
 }
 
