@@ -37,6 +37,10 @@
     img {
         max-width: 20px;
     }
+    
+    .mainImg {
+        max-width: 40px;
+    }
 }
 
 @media (min-width:481px)  {
@@ -65,6 +69,10 @@
     img {
         max-width: 60px;
     }
+    
+    .mainImg {
+        max-width: 120px;
+    }
 }
 
 
@@ -90,4 +98,9 @@
     border-width: 2px;
     border-radius: 5px;
     border-color: #B1BDC4;
+}
+
+.rightMenuObj{
+    position: relative;
+    right: 20px;
 }
