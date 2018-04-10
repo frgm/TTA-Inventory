@@ -102,5 +102,10 @@
 
 .rightMenuObj{
     position: relative;
+    margin-left: auto;
     left: 20px;
+}
+
+.menuDiv {
+    display: flex
 }
