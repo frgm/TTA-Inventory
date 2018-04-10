@@ -36,6 +36,10 @@ def report(request):
         return render(request,"error.html")
     return render(request,"report.html")
 
+def menu(request):
+    return render(request,"menu.html")
+    
+    
 class dbReport(View):
     @csrf_exempt
     def get(self, request):

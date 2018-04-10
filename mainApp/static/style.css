@@ -45,6 +45,10 @@
         max-width: 930px;
         background-color: #758C98;
         font-family: "Trebuchet MS", sans-serif;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 3px;
+        border-color: #B1BDC4;
     }
 
     .loginBody{
