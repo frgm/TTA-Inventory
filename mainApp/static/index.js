@@ -20,7 +20,7 @@ function login(){
         data: {'name':name, 'pasw':pass}
     }).done(function(response){
         if(response.success){
-            window.location.href = 'menu',
+            window.location.href = 'menu';
             /*
             switch(response.role){
                 case 'adminPro':
