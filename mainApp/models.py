@@ -4,7 +4,7 @@ class Employees(models.Model):
     ID_Emp = models.AutoField(primary_key=True)
     Name = models.CharField(max_length=200, default='') #Or phone number
     Password = models.CharField(max_length=200, default='')
-    Role = models.CharField(max_length=200, default='')
+    Role = models.IntegerField(default='00000')
     ID_Loc = models.IntegerField(default=0) #not key, can repeat. Keep track of locations
     
     def __str__(self):

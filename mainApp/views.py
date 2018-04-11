@@ -9,17 +9,17 @@ import mainApp.algorithms as algo
 import json
 
 def adminInv(request):
-    if 'Role' not in request.session or request.session['Role'] != 'admin' :
+    if 'Role' not in request.session or request.session['Role'] in 'admin' :
         return render(request,"error.html")
     return render(request,"adminInv.html")
     
 def adminPro(request):
-    #if 'Role' not in request.session or request.session['Role'] != 'pro':
+    #if 'Role' not in request.session or request.session['Role'] in 'pro':
     #    return render(request,"error.html")
     return render(request,"adminPro.html")
 
 def distribution(request):
-    if 'Role' not in request.session or request.session['Role'] != 'distribution':
+    if 'Role' not in request.session or request.session['Role'] in 'distribution':
         return render(request,"error.html")
     return render(request,"distribution.html")
 
@@ -27,12 +27,12 @@ def index(request):
     return render(request,"index.html")
 
 def production(request):
-    if 'Role' not in request.session or request.session['Role'] != 'production':
+    if 'Role' not in request.session or request.session['Role'] in 'production':
         return render(request,"error.html")
     return render(request,"production.html")
     
 def report(request):
-    if 'Role' not in request.session or request.session['Role'] != 'report':
+    if 'Role' not in request.session or request.session['Role'] in 'report':
         return render(request,"error.html")
     return render(request,"report.html")
 
@@ -183,3 +183,7 @@ class login(View):
             return JsonResponse({'success' : True, 'role' : e[0].Role})
         else:
             return JsonResponse({'success' : False})
+            
+class dbMenu(View):
+    def get(self, request):
+        return JsonResponse({'success' : True, 'role' : request.session['Role']})

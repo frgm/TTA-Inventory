@@ -20,6 +20,8 @@ function login(){
         data: {'name':name, 'pasw':pass}
     }).done(function(response){
         if(response.success){
+            window.location.href = 'menu',
+            /*
             switch(response.role){
                 case 'adminPro':
                     window.location.href = 'adminPro';
@@ -39,9 +41,10 @@ function login(){
                 default:
                     alert('Role error');
             }
+            */
         }
         else if(!(response.success)){
-            alert('ERROR');
+            alert('Login no encontrado');
         }
     });
 }
