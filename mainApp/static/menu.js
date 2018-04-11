@@ -21,7 +21,7 @@ $(function(){
             }else if (response.role & 1){   //report
                 $("#report").bind('click', {param: "report"}, menuClick);
             }
-        else if(!(response.success)){
+        } else if(!(response.success)){
             alert('Roles no encontrados');
         }
     });
