@@ -15,14 +15,18 @@ $(function(){
             alert(flags & 8);
             if (flags & 16){    //adminPro
                 //$("#adminPro").bind('click', {param: "adminPro"}, menuClick);
-                pass;
-            }else if (flags & 8){   //adminInv
+                ;
+            }
+            if (flags & 8){   //adminInv
                 $("#adminInv").bind('click', {param: "adminInv"}, menuClick);
-            }else if (flags & 4){   //distribution
+            }
+            if (flags & 4){   //distribution
                 $("#distribution").bind('click', {param: "distribution"}, menuClick);
-            }else if (flags & 2){   //production
+            }
+            if (flags & 2){   //production
                 $("#production").bind('click', {param: "production"}, menuClick);
-            }else if (flags & 1){   //report
+            }
+            if (flags & 1){   //report
                 $("#report").bind('click', {param: "report"}, menuClick);
             }else{
                 alert("Roles no encontrados");
