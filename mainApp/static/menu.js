@@ -10,7 +10,7 @@ $(function(){
         data: {}
     }).done(function(response){
         if(response.success){
-            flags = parseInt(response.role);
+            flags = parseInt(response.role,2);
             alert(flags);
             alert(flags & 8);
             if (flags & 16){    //adminPro
