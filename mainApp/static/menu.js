@@ -13,7 +13,7 @@ $(function(){
             flags = parseInt(response.role,2);
             if (flags & 16){    //adminPro
                 //$("#adminPro").bind('click', {param: "adminPro"}, menuClick);
-                ;
+                ; //undo
             }
             if (flags & 8){   //adminInv
                 $("#adminInv").bind('click', {param: "adminInv"}, menuClick);
