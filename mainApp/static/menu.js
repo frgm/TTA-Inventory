@@ -11,8 +11,6 @@ $(function(){
     }).done(function(response){
         if(response.success){
             flags = parseInt(response.role,2);
-            alert(flags);
-            alert(flags & 8);
             if (flags & 16){    //adminPro
                 //$("#adminPro").bind('click', {param: "adminPro"}, menuClick);
                 ;
@@ -37,6 +35,7 @@ $(function(){
     });
 });
 
-function menuClick(id){
+function menuClick(event){
+    id = event.data.param;
     window.location.href = id; 
 }
