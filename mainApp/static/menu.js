@@ -20,9 +20,11 @@ $(function(){
                 $("#production").bind('click', {param: "production"}, menuClick);
             }else if (response.role & 1){   //report
                 $("#report").bind('click', {param: "report"}, menuClick);
-            }
-        } else if(!(response.success)){
-            alert('Roles no encontrados');
+            }else{
+                alert("Roles no encontrados");
+            }                
+        } else {
+            alert("Usuario no encontrado")
         }
     });
 });
