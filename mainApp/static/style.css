@@ -109,3 +109,7 @@
 .menuDiv {
     display: flex
 }
+
+.disabled label{
+    color: #aaa;
+}

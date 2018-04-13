@@ -17,15 +17,19 @@ $(function(){
             }
             if (flags & 8){   //adminInv
                 $("#adminInv").bind('click', {param: "adminInv"}, menuClick);
+                $("#adminInv").removeClass("disabled");
             }
             if (flags & 4){   //distribution
                 $("#distribution").bind('click', {param: "distribution"}, menuClick);
+                $("#distribution").removeClass("disabled");
             }
             if (flags & 2){   //production
                 $("#production").bind('click', {param: "production"}, menuClick);
+                $("#production").removeClass("disabled");
             }
             if (flags & 1){   //report
                 $("#report").bind('click', {param: "report"}, menuClick);
+                $("#report").removeClass("disabled");
             }else{
                 alert("Roles no encontrados");
             }                
