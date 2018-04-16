@@ -15,6 +15,10 @@ class Products(models.Model):
     ID_Prod = models.AutoField(primary_key=True)
     Name = models.CharField(max_length=200, default='')
     Material = models.FloatField(default=0)
+    Material2 = models.FloatField(default=0)
+    Material3 = models.FloatField(default=0)
+    Material4 = models.FloatField(default=0)
+    Material5 = models.FloatField(default=0)
     
     def __str__(self):
         return self.Name
