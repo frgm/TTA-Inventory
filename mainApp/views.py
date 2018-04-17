@@ -168,9 +168,12 @@ class dbAdminInv(View):
             p,_ = algo.predictRegression((todayDate + dt.timedelta(days=i)).strftime("%d-%m-%Y"))
             proyectedValues.append(p)
         daysAgo = dt.datetime.now() - dt.timedelta(days=5)
-        pred = md.PredictedRequisition.objects.filter(Date__gte = daysAgo).values_list('Quantity')
-        real = md.Requisition.objects.filter(Date__gte = daysAgo).values_list('Quantity')
-        precision = algo.getPrecision(pred,real)        
+        try:
+            pred = md.PredictedRequisition.objects.filter(Date__gte = daysAgo).values_list('Quantity')
+            real = md.Requisition.objects.filter(Date__gte = daysAgo).values_list('Quantity')
+            precision = algo.getPrecision(pred,real)
+        except:
+            precision = -1
         return JsonResponse({success: True, 'today': today, 'tomorrow': tomorrow, 'pastValues': pastValues, 'proyectedValues': proyectedValues, 'precision': precision})   
         
 class login(View):
