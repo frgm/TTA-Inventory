@@ -1,4 +1,5 @@
 from sklearn.linear_model import LinearRegression
+from sklearn.metrics import precision_score
 from sklearn.externals import joblib
 import numpy as np
 import datetime as dt
