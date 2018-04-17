@@ -78,7 +78,7 @@ class dbProduction(View):
         prodVal = {}
         daysAgo = dt.datetime.now() - dt.timedelta(days=2)
         try:
-            req = md.Requisition.objects.filter(Date__lt = daysAgo)
+            req = md.Requisition.objects.filter(Date__gte = daysAgo)
             #req = md.Requisition.objects.filter(Date = dt.datetime.now())
             usage = {'empty':0}
             for r in req:
@@ -86,7 +86,7 @@ class dbProduction(View):
         except:
             usage = {'error':-1}         
         try:
-            rep = md.Report.objects.filter(Date__lt = daysAgo)
+            rep = md.Report.objects.filter(Date__gte = daysAgo)
             #rep = md.Report.objects.filter(Date = dt.datetime.now())
             dQuotas = {'empty':0}
             for r in rep:
@@ -94,7 +94,7 @@ class dbProduction(View):
                 usage[prod.Name] = r.Quantity
         except:
             dQuotas = {'error':-1}            
-        dUsage,_ = algo.predictRegression(dt.datetime.now().strftime("%d-%m-%Y"))
+        dUsage = algo.predictRegression(dt.datetime.now().strftime("%d-%m-%Y"))
         prodVal['usage'] = json.dumps(usage)
         prodVal['dailyItemQuotas'] = json.dumps(dQuotas)
         prodVal['dailyusage'] = dUsage
@@ -157,8 +157,8 @@ class dbAdminInv(View):
     @csrf_exempt
     def get(self, request):
         todayDate =  dt.datetime.now()
-        today,precision = algo.predictRegression(todayDate.strftime("%d-%m-%Y"))
-        tomorrow,_ = algo.predictRegression((todayDate + dt.timedelta(days=1)).strftime("%d-%m-%Y"))
+        today = algo.predictRegression(todayDate.strftime("%d-%m-%Y"))
+        tomorrow = algo.predictRegression((todayDate + dt.timedelta(days=1)).strftime("%d-%m-%Y"))        
         pastValues = []
         for i in range(1,4):
             q = md.Requisition.objects.filter(ID_Loc=request.session['ID_Loc_Usr']).filter(Date = todayDate - dt.timedelta(days= i))
@@ -167,6 +167,10 @@ class dbAdminInv(View):
         for i in range(2,5):
             p,_ = algo.predictRegression((todayDate + dt.timedelta(days=i)).strftime("%d-%m-%Y"))
             proyectedValues.append(p)
+        daysAgo = dt.datetime.now() - dt.timedelta(days=5)
+        pred = md.PredictedRequisition.objects.filter(Date__gte = daysAgo).values_list('Quantity')
+        real = md.Requisition.objects.filter(Date__gte = daysAgo).values_list('Quantity')
+        precision = algo.getPrecision(pred,real)        
         return JsonResponse({success: True, 'today': today, 'tomorrow': tomorrow, 'pastValues': pastValues, 'proyectedValues': proyectedValues, 'precision': precision})   
         
 class login(View):

@@ -10,13 +10,16 @@ def makeRegression(usage, days):
     regression = LinearRegression()
     regression.fit(np.transpose(np.matrix(ordd)), np.transpose(np.matrix(usage)))
     joblib.dump(regression, 'regressionModel.pkl')
+
+def getPrecision(predicted,real): #lists
+    prediction = precision_score(real, predicted)
+    return prediction
     
 def predictRegression(day):
     try:
         regression = joblib.load('regressionModel.pkl')
     except:
-        return -1,-1 #error
+        return -1 #error
     ordd = dt.datetime.strptime(day,"%d-%m-%Y").date().toordinal()
     prediction = regression.predict(ordd)
-    precision = 0
-    return prediction, precision
+    return prediction
