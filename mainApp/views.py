@@ -177,7 +177,7 @@ class dbAdminInv(View):
             precision = algo.getPrecision(pred,real)
         except:
             precision = -1
-        return JsonResponse({success: True, 'today': today, 'tomorrow': tomorrow, 'pastValues': pastValues, 'proyectedValues': proyectedValues, 'precision': precision})   
+        return JsonResponse({'success': True, 'today': today, 'tomorrow': tomorrow, 'pastValues': pastValues, 'proyectedValues': proyectedValues, 'precision': precision})   
         
 class login(View):
     @csrf_exempt
