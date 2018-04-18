@@ -160,12 +160,15 @@ class dbAdminInv(View):
         today = algo.predictRegression(todayDate.strftime("%d-%m-%Y"))
         tomorrow = algo.predictRegression((todayDate + dt.timedelta(days=1)).strftime("%d-%m-%Y"))        
         pastValues = []
-        for i in range(1,4):
-            q = md.Requisition.objects.filter(ID_Loc=request.session['ID_Loc_Usr']).filter(Date = todayDate - dt.timedelta(days= i))
-            pastValues.append(q[0].Quantity)
+        try:
+            for i in range(1,4):
+                q = md.Requisition.objects.filter(ID_Loc=request.session['ID_Loc_Usr']).filter(Date = todayDate - dt.timedelta(days= i))
+                pastValues.append(q[0].Quantity)
+        except:
+            pastValues = [-1,-1,-1,-1,-1]
         proyectedValues = []
         for i in range(2,5):
-            p,_ = algo.predictRegression((todayDate + dt.timedelta(days=i)).strftime("%d-%m-%Y"))
+            p = algo.predictRegression((todayDate + dt.timedelta(days=i)).strftime("%d-%m-%Y"))
             proyectedValues.append(p)
         daysAgo = dt.datetime.now() - dt.timedelta(days=5)
         try:
